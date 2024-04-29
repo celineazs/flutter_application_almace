@@ -6,6 +6,8 @@ import 'Vista/Vista_MenuAlmacen.dart';
 import 'Vista/Vista_MenuVigilante.dart';
 import 'dart:async';
 import 'dart:math';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 void main() async{
   Hive.init('hive_database');
   await Hive.openBox('Camiones');
@@ -15,6 +17,10 @@ void main() async{
   await Hive.openBox('Usuarios');
   await Hive.openBox('Operadores');
   await Hive.openBox('Agenda');
+  
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp( const MyApp());
 }
 
@@ -65,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 79, 212, 184),
+              Color.fromARGB(255, 15, 58, 47),
               Color.fromARGB(255, 70, 209, 191),
             ],
           ),
@@ -154,10 +160,10 @@ Widget build(BuildContext context) {
           height: MediaQuery.of(context).size.height * 0.7, 
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+              //begin: Alignment.topCenter,
+              //end: Alignment.bottomCenter,
               colors: [
-                Color.fromARGB(255, 79, 212, 184),
+                Color.fromARGB(255, 15, 58, 47),
                 Color.fromARGB(255, 70, 209, 191),
               ],
             ),
@@ -367,30 +373,5 @@ Widget build(BuildContext context) {
               ),
           );
         }
-
-  void _login() {
-    if (_formKey.currentState!.validate()) {
-      // Muestra en la consola las variables _email y _password
-      print("Email: $_email, Password: $_password");
-
-      // Verifica si el correo y la contraseña son "1" y "1234"
-      if (_email == "1" && _password == "1234") {
-        // Utiliza Navigator.of con rootNavigator: true para asegurar la navegación correcta
-        Navigator.of(context, rootNavigator: true).push(
-          MaterialPageRoute(builder: (context) => const Inicio()),
-        );
-      } else if (_email == "2" && _password == "1234") {
-        // Verifica si el correo y la contraseña son "2" y "1234"
-        // Utiliza Navigator.of con rootNavigator: true para asegurar la navegación correcta
-        Navigator.of(context, rootNavigator: true).push(
-          MaterialPageRoute(builder: (context) => const AlmacenesMenu()),
-        );
-      } else {
-        // Muestra un mensaje de error si el correo o la contraseña no son correctos
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Correo o contraseña incorrectos')),
-        );
-      }
-    }
-  }
+        
 }

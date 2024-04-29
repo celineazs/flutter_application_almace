@@ -13,6 +13,7 @@ class RegistroUsuarios extends StatefulWidget {
 
 class _RegistroUsuariosState extends State<RegistroUsuarios> {
   String nombre = '';
+  bool _showPassword = false;
   String contrasena = '';
   String matricula = '';
   String? tipoUsuario; // Cambiado a String nulable
@@ -33,10 +34,8 @@ class _RegistroUsuariosState extends State<RegistroUsuarios> {
           height: MediaQuery.of(context).size.height * 0.30,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
               colors: [
-                Color.fromARGB(255, 79, 212, 184),
+                Color.fromARGB(255, 15, 58, 47),
                 Color.fromARGB(255, 52, 174, 190),
               ],
             ),
@@ -149,30 +148,49 @@ class _RegistroUsuariosState extends State<RegistroUsuarios> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 15),
-                            const Text(
-                              'Contraseña ',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 17,
-                              ),
-                            ),
-                            TextField(
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: ' ',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 17,
+                            Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8), 
+                                  child: Text('Contraseña',style: TextStyle(color: Colors.black, fontSize: 17),
+                                  ),
+                                  ),
+                                  Expanded(child: Container()),
+                                  IconButton(
+                                    icon: Icon(_showPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined, 
+                                    color: const Color.fromARGB(255, 70, 209, 191), 
+                                    size: 25),
+                                    onPressed: () { 
+                                      setState(() {
+                                        _showPassword = !_showPassword; 
+                                        });
+                                      }
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  contrasena = value;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
+                                TextFormField(
+                                  obscureText: !_showPassword, 
+                                  decoration: const InputDecoration(
+                                    hintText: '',
+                                    hintStyle: TextStyle(color: Colors.grey, fontSize: 17),
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                                    ),
+                                    style: const TextStyle(color: Colors.black),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Ingrese su contraseña';
+                                        }
+                                        return null;
+                                        },
+                                        onChanged: (value) {
+                                          setState(() {
+                                            contrasena = value;
+                                            });
+                                          },
+                                        ),
+                                      ],
+                                    ),
                       ),
                       const SizedBox(height: 15),
                       Align(

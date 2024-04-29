@@ -7,8 +7,20 @@ class VistaForrperador extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Vista de Chofer'),
-      ),
+        title: const Text('Alta de Operador', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 41, 39, 39),
+          elevation: 0,
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
+           toolbarHeight: 80,
+          leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios_new_sharp),
+        onPressed: () {
+          Navigator.pop(context);
+    },
+  )
+         ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -145,20 +157,18 @@ class VistaForrperador extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              // Botón "ACEPTAR"
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Acción que quieres realizar cuando se presione el botón
-                  },
+                    },
                   style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                  ),
-                  child: const Text('ACEPTAR'),
+                foregroundColor: Colors.white, 
+                backgroundColor: Colors.black,
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                ),
+                  child: const Text('Guardar'),
                 ),
               ),
             ],

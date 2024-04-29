@@ -19,6 +19,9 @@ Widget build(BuildContext context) {
       appBarTheme: const AppBarTheme(
         backgroundColor: Color.fromARGB(255, 41, 39, 39),
         elevation: 0, 
+        iconTheme: IconThemeData(
+        color: Colors.white,
+      ),
       ),
       iconTheme: const IconThemeData(
         color: Color.fromARGB(255, 243, 238, 238),

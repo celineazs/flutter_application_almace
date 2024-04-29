@@ -19,11 +19,11 @@ class _AlmacenesMenuState extends State<AlmacenesMenu> {
       data: Theme.of(context).copyWith(
         appBarTheme: const AppBarTheme(
           backgroundColor: Color.fromARGB(255, 41, 39, 39),
-          elevation: 0,
-        ),
-        iconTheme: const IconThemeData(
-          color: Color.fromARGB(255, 243, 238, 238),
-        ),
+           elevation: 0,
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+      ),
       ),
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 243, 238, 238),
@@ -47,19 +47,8 @@ class _AlmacenesMenuState extends State<AlmacenesMenu> {
                     Row(
                       children: [
                         const Padding(padding: EdgeInsets.only(left: 30.0)),
-                        const Text(
-                          'Buscar',
-                          style: TextStyle(color: Colors.white, fontSize: 25),
-                        ),
+                        
                         Expanded(child: Container()),
-                        SizedBox(
-                          height: 100,
-                          child: IconButton(
-                            icon: const Icon(Icons.search, size: 25),
-                            color: Colors.white,
-                            onPressed: () {},
-                          ),
-                        ),
                       ],
                     ),
                   ],

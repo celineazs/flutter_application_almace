@@ -210,7 +210,7 @@ class _AltaCamionViewState extends State<AltaCamionView> {
                 backgroundColor: Colors.black,
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 ),
-              child: const Text('Guardar Camión'),
+              child: const Text('Guardar'),
              ),
             ),
           ],
