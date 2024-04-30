@@ -201,13 +201,14 @@ Widget build(BuildContext context) {
                     children: [
                       Container(
                         child: ElevatedButton(
-                          onPressed:(){
-                            if(controlador.login(_email, _password)){
-                              if(controlador.getTipoUsuario(_email) == 1){
-                                Navigator.of(context, rootNavigator: true).push(
-                                  MaterialPageRoute(builder: (context) => const Inicio(),
-                                  ),
-                                );
+                           onPressed: () async {
+                          if (await controlador.login(_email, _password)){
+                            if(await controlador.getTipoUsuario(_email) == 1){
+                              Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const Inicio(),
+                                ),
+                              );
                               }else{
                                 Navigator.of(context, rootNavigator: true).push(
                                   MaterialPageRoute(builder: (context) => const AlmacenesMenu(),

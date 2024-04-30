@@ -1,27 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_almacee/Modelo/Usuario.dart';
-import 'package:hive/hive.dart';
 
 class ControladorLogin {
-  List<Usuario> usuarios = [];
+  final CollectionReference _usuariosCollection =
+      FirebaseFirestore.instance.collection('Usuarios');
 
-  List<Usuario> getUsuariosFromHive() {
+  Future<List<Usuario>> getUsuariosFromFirebase() async {
     List<Usuario> usuarios = [];
-    var hiveUsuarios = Hive.box('Usuarios');
-    for (var i = 0; i < hiveUsuarios.length; i++) {
-      var usuarioData = hiveUsuarios.getAt(i);
+    final querySnapshot = await _usuariosCollection.get();
+    for (var doc in querySnapshot.docs) {
       usuarios.add(Usuario(
-        nombre: usuarioData['nombre'],
-        contrasena: usuarioData['contrasena'],
-        matricula: usuarioData['matricula'],
-        tipoUsuario: usuarioData['tipoUsuario'],
-        esAdmin: usuarioData['esAdmin'],
+        nombre: doc['nombre'],
+        contrasena: doc['contrasena'],
+        matricula: doc['matricula'],
+        tipoUsuario: doc['tipoUsuario'],
+        esAdmin: doc['esAdmin'],
       ));
     }
     return usuarios;
   }
 
-  bool login(String email, String password) {
-    usuarios = getUsuariosFromHive();
+  Future<bool> login(String email, String password) async {
+    List<Usuario> usuarios = await getUsuariosFromFirebase();
     for (var usuario in usuarios) {
       if (usuario.nombre == email && usuario.contrasena == password) {
         return true;
@@ -30,7 +30,8 @@ class ControladorLogin {
     return false;
   }
 
-  bool isAdmin(String email) {
+  Future<bool> isAdmin(String email) async {
+    List<Usuario> usuarios = await getUsuariosFromFirebase();
     for (var usuario in usuarios) {
       if (usuario.nombre == email && usuario.esAdmin) {
         return true;
@@ -39,9 +40,11 @@ class ControladorLogin {
     return false;
   }
 
-  int getTipoUsuario(String email) {
+  Future<int> getTipoUsuario(String email) async {
+    List<Usuario> usuarios = await getUsuariosFromFirebase();
     for (var usuario in usuarios) {
       if (usuario.nombre == email) {
+        print(usuario.tipoUsuario);
         if (usuario.tipoUsuario == 'Almacenista') {
           return 1;
         } else if (usuario.tipoUsuario == 'Vigilante') {

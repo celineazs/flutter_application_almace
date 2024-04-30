@@ -1,35 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_almacee/Modelo/Usuario.dart';
-import 'package:hive/hive.dart';
 
-class Controlaodr_RegistrarUsuario  {
-  var Usuarios = Hive.box('Usuarios');  
+class Controlador_RegistrarUsuario {
 
-  bool registrarUsuario(Usuario usuario) {
-  for (var i = 0; i < Usuarios.length; i++) {
-    if (Usuarios.getAt(i)['nombre'] == usuario.nombre) {
+  final CollectionReference _usuariosCollection =
+      FirebaseFirestore.instance.collection('Usuarios');
+
+  Future<bool> registrarUsuario(Usuario usuario) async {
+    final querySnapshot = await _usuariosCollection
+        .where('nombre', isEqualTo: usuario.nombre)
+        .get();
+    if (querySnapshot.docs.isNotEmpty) {
       return false;
     }
+
+    await _usuariosCollection.add(usuario.toMap());
+    return true;
   }
-  Usuarios.add(usuario.toMap());
-  return true;
-}
-void agregarUsuarioAdmin() {
-  bool existeAdmin = false;
-  for (var i = 0; i < Usuarios.length; i++) {
-    if (Usuarios.getAt(i)['nombre'] == 'admin' && Usuarios.getAt(i)['tipoUsuario'] == 'admin') {
-      existeAdmin = true;
-      break;
-    }
-  }
-  if (!existeAdmin) {
-    Usuarios.add({
-      'nombre': 'admin',
-      'contrasena': 'admin123',
-      'matricula': 'admin',
-      'tipoUsuario': 'admin',
-      'esAdmin': true,
-    });
-  }
-print("Usuario admin agregado");
-}
+
 }

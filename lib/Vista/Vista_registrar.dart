@@ -16,13 +16,12 @@ class _RegistroUsuariosState extends State<RegistroUsuarios> {
   bool _showPassword = false;
   String contrasena = '';
   String matricula = '';
-  String? tipoUsuario; // Cambiado a String nulable
+  String? tipoUsuario; 
   bool esAdmin = false;
   String adminNombre = 'admin';
   String adminContrasena = 'admin123';
   bool adminValido = false;
-  final Controlaodr_RegistrarUsuario _controlador = Controlaodr_RegistrarUsuario();
-
+  final Controlador_RegistrarUsuario _controlador = Controlador_RegistrarUsuario();
 
 @override
   Widget build(BuildContext context) {
@@ -277,7 +276,7 @@ class _RegistroUsuariosState extends State<RegistroUsuarios> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                Container(
+                                 Container(
                                   width: MediaQuery.of(context).size.width / 1.0,
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15, vertical: 8),
@@ -368,14 +367,14 @@ class _RegistroUsuariosState extends State<RegistroUsuarios> {
                                   alignment: Alignment.center,
                                   child: SizedBox(
                                     child: ElevatedButton(
-                                      onPressed: () {
-                                        bool registrado = _controlador.registrarUsuario(Usuario(
-                                          nombre: matricula,
-                                          contrasena: contrasena,
-                                          matricula: matricula,
-                                          tipoUsuario: tipoUsuario ?? '', // Usar el valor seleccionado o cadena vacía si es nulo
-                                          esAdmin: false,
-                                        ));
+                                      onPressed: () async {
+                                          bool registrado = await _controlador.registrarUsuario(Usuario(
+                                            nombre: matricula,
+                                            contrasena: contrasena,
+                                            matricula: matricula,
+                                            tipoUsuario: tipoUsuario ?? '', // Usar el valor seleccionado o cadena vacía si es nulo
+                                            esAdmin: false,
+                                          ));
                                         if (registrado) {
                                           showDialog(
                                             context: context,

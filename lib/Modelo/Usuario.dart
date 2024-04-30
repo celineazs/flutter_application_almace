@@ -2,7 +2,7 @@ class Usuario {
   String nombre;
   String contrasena;
   String matricula;
-  String tipoUsuario; // "almacenista" o "vigilante"
+  String tipoUsuario; 
   bool esAdmin;
 
   Usuario({
