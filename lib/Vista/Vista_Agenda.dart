@@ -1,44 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_almacee/Vista/Vista_DetalleEntradaCamion.dart';
+import 'package:flutter_application_almacee/Vista/Vista_DetallesSalidaCamiones.dart';
 
-import '../Modelo/Entrada.dart';
-import '../Modelo/Salida.dart';
+import '../Modelo/EntradaCamiones.dart';
+import '../Modelo/SalidaCamiones.dart';
 
 class VistaAgenda extends StatelessWidget {
-  final List<EntradaProgramada> entradasProgramadas = [
-    EntradaProgramada(
+
+  final List<EntradaCamiones> entradasProgramadas = [
+    EntradaCamiones(
       matriculaCamion: 'XXXX-XXX',
       horaEntrada: '08:00',
+      tipodeCarga: 'Carga de prueba',
+      pesoCarga: '1000 kg',
+      destinoCarga: 'Destino de prueba',
+      nombreConductor: 'Conductor de prueba',
     ),
-    EntradaProgramada(
+    EntradaCamiones(
       matriculaCamion: 'YYYY-YYY',
-      horaEntrada: '09:30',
+      horaEntrada: '10:00',
+      tipodeCarga: 'Carga de prueba',
+      pesoCarga: '1000 kg',
+      destinoCarga: 'Destino de prueba',
+      nombreConductor: 'Conductor de prueba',
     ),
   ];
 
-  final List<SalidaProgramada> salidasProgramadas = [
-    SalidaProgramada(
-      matriculaCamion: 'XXXX-XXX',
-      horaSalida: '16:00',
+  final List<SalidaCamiones> salidasProgramadas = [
+    SalidaCamiones(
+      matriculaCamion: 'ZZZZ-ZZZ',
+      horaSalida: '12:00',
+      tipodeCarga: 'Carga de prueba',
+      pesoCarga: '1000 kg',
+      destinoCarga: 'Destino de prueba',
+      nombreConductor: 'Conductor de prueba',
     ),
-    SalidaProgramada(
-      matriculaCamion: 'YYYY-YYY',
-      horaSalida: '18:00',
+    SalidaCamiones(
+      matriculaCamion: 'WWWW-WWW',
+      horaSalida: '14:00',
+      tipodeCarga: 'Carga de prueba',
+      pesoCarga: '1000 kg',
+      destinoCarga: 'Destino de prueba',
+      nombreConductor: 'Conductor de prueba',
     ),
   ];
-
-   VistaAgenda({super.key});
 
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Agenda', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color.fromARGB(255, 41, 39, 39), 
-        elevation: 0, 
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-        toolbarHeight: 80
+        title: Text('Agenda'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,9 +61,22 @@ class VistaAgenda extends StatelessWidget {
             child: ListView.builder(
               itemCount: entradasProgramadas.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('Camión: ${entradasProgramadas[index].matriculaCamion}'),
-                  subtitle: Text('Hora de Entrada: ${entradasProgramadas[index].horaEntrada}'),
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Text('Camión: ${entradasProgramadas[index].matriculaCamion}'),
+                      subtitle: Text('Hora de Entrada: ${entradasProgramadas[index].horaEntrada}'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetalleEntradaCamion(entrada: entradasProgramadas[index]),
+                          ),
+                        );
+                      },
+                    ),
+                   
+                  ],
                 );
               },
             ),
@@ -64,9 +88,21 @@ class VistaAgenda extends StatelessWidget {
             child: ListView.builder(
               itemCount: salidasProgramadas.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('Camión: ${salidasProgramadas[index].matriculaCamion}'),
-                  subtitle: Text('Hora de Salida: ${salidasProgramadas[index].horaSalida}'),
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Text('Camión: ${salidasProgramadas[index].matriculaCamion}'),
+                      subtitle: Text('Hora de Salida: ${salidasProgramadas[index].horaSalida}'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetalleSalidaCamion(salida: salidasProgramadas[index]),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 );
               },
             ),

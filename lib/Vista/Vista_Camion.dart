@@ -1,63 +1,56 @@
+import 'package:flutter_application_almacee/Controlador/Controlador_camiones.dart';
 import 'package:flutter_application_almacee/Vista/Vista_altasCamiones.dart';
-
 import '../Modelo/Camion.dart';
 import 'Vista_DetallesCamion.dart';
 import 'package:flutter/material.dart';
 
 
-class VistaCamion extends StatelessWidget {
-  final List<Camion> _camiones = [
-    Camion(
-      matricula: 'XXX-XXX',
-      modelo: 'Modelo 1',
-      anoFabricacion: 2020,
-      companiaTransporte: 'Compañía 1',
-      enTransito: true,
-      enEspera: false,
-      enMantenimiento: false,
-      kilometraje: 10000,
-      ultimoServicio: '2023-01-01', 
-      proximoServicio: '2024-01-01', 
-      historialCargas: 2, 
-    ),
-    Camion(
-      matricula: 'YYY-YYY',
-      modelo: 'Modelo 2',
-      anoFabricacion: 2019,
-      companiaTransporte: 'Compañía 2',
-      enTransito: false,
-      enEspera: true,
-      enMantenimiento: false,
-      kilometraje: 20000,
-      ultimoServicio: '2022-01-01',
-      proximoServicio: '2023-01-01', 
-      historialCargas: 2, 
+class VistaCamion extends StatefulWidget {
+   const VistaCamion({super.key});
 
-    ),
-  ];
-
-   VistaCamion({super.key});
-   
   @override
-  Widget build(BuildContext context) {
+  State<VistaCamion> createState() => _VistaCamionState();
+}
+
+class _VistaCamionState extends State<VistaCamion> {
+  late List<Camion> _camiones;
+  final ControladorCamiones controlador= ControladorCamiones();
+
+  @override
+ void initState() {
+  super.initState();
+  _cargarCamiones();
+}
+
+Future<void> _cargarCamiones() async {
+  List<Camion> listaCamiones = await controlador.getCamionesDeBD();
+  setState(() {
+    _camiones = listaCamiones;
+  });
+}
+
+
+  @override
+Widget build(BuildContext context) {
+
+
   return Theme(
   data: Theme.of(context).copyWith(
   appBarTheme: const AppBarTheme(
-  backgroundColor: Color.fromARGB(255, 41, 39, 39), 
-  elevation: 0, 
-  iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-        toolbarHeight: 80
+  backgroundColor: Color.fromARGB(255, 41, 39, 39), // Color negro
+  elevation: 0,
+  ),
+  iconTheme: const IconThemeData(
+  color: Colors.white,
   ),
   ),
   child: Scaffold(
   backgroundColor: Colors.white,
   appBar: AppBar(
   leading: IconButton(
-    icon: const Icon(Icons.arrow_back_ios_new_sharp),
+    icon: const Icon(Icons.arrow_back),
     onPressed: () {
-    Navigator.pop(context);
+    Navigator.pop(context); 
     },
   ),
   actions: [
@@ -79,17 +72,28 @@ class VistaCamion extends StatelessWidget {
   separatorBuilder: (BuildContext context, int index) => const Divider(),
   itemBuilder: (BuildContext context, int index) {
     return ListTile(
-    title: Text('Matrícula: ${_camiones[index].matricula}'),
-    subtitle: Text('Estado: ${_getEstado(_camiones[index])}', style: const TextStyle(color: Color.fromARGB(255, 7, 68, 9))),
-    tileColor: const Color.fromARGB(206, 243, 235, 235),
-    onTap: () {
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => VistaDetallesCamion(camion: _camiones[index]),
-    ),
-    );
-    },
+      title: Text('Matrícula: ${_camiones[index].matricula}'),
+      subtitle: FutureBuilder<String>(
+        future: controlador.getEstado(_camiones[index]),
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text('Estado: Loading...', style: TextStyle(color: Color.fromARGB(255, 7, 68, 9)));
+          } else if (snapshot.hasError) {
+            return const Text('Estado: Error', style: TextStyle(color: Color.fromARGB(255, 7, 68, 9)));
+          } else {
+            return Text('Estado: ${snapshot.data}', style: const TextStyle(color: Color.fromARGB(255, 7, 68, 9)));
+          }
+        },
+      ),
+      tileColor: const Color.fromARGB(206, 243, 235, 235),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VistaDetallesCamion(camion: _camiones[index]),
+          ),
+        );
+      },
     );
   },
   ),
@@ -97,15 +101,5 @@ class VistaCamion extends StatelessWidget {
   );
 }
 
-String _getEstado(Camion camion) {
-  if (camion.enTransito) {
-    return 'En tránsito';
-  } else if (camion.enEspera) {
-    return 'En espera';
-  } else if (camion.enMantenimiento) {
-    return 'En mantenimiento';
-  } else {
-    return 'Desconocido';
-  }
-}
+
 }

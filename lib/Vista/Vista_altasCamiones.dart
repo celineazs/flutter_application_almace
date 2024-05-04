@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_almacee/Controlador/Controlador_camiones.dart';
+import 'package:flutter_application_almacee/Modelo/Camion.dart';
 
 class AltaCamionView extends StatefulWidget {
   const AltaCamionView({super.key});
@@ -8,6 +10,7 @@ class AltaCamionView extends StatefulWidget {
 }
 
 class _AltaCamionViewState extends State<AltaCamionView> {
+  ControladorCamiones _controlador = ControladorCamiones();
   final TextEditingController _matriculaController = TextEditingController();
   final TextEditingController _modeloController = TextEditingController();
   final TextEditingController _anoController = TextEditingController();
@@ -15,172 +18,59 @@ class _AltaCamionViewState extends State<AltaCamionView> {
   final TextEditingController _kilometrajeController = TextEditingController();
   DateTime _ultimoServicio = DateTime.now();
   DateTime _proximoServicio = DateTime.now();
-  final List<String> _historialCargas = [];
+  String ultimoServicio = '';
+  String proximoServicio = '';
 
   @override
   Widget build(BuildContext context) {
-  return SafeArea(
-    child: Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80),
-        child: AppBar(
-          title: const Text('Alta de Camión', style: TextStyle(color: Colors.white)),
-          backgroundColor: const Color.fromARGB(255, 41, 39, 39),
-          elevation: 0,
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_sharp),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Alta de Camión'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Text(
-              'Matrícula:',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
-              ), 
-            const SizedBox(height: 10),
             TextField(
               controller: _matriculaController,
-              decoration: const InputDecoration(labelText: 'Ingrese matrícula del camión',
-              border: OutlineInputBorder(),),
+              decoration: const InputDecoration(labelText: 'Matrícula'),
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'Modelo:',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
-              ), 
-            const SizedBox(height: 10),
             TextField(
               controller: _modeloController,
-              decoration: const InputDecoration(labelText: 'Ingrese modelo del camión'
-              ,border: OutlineInputBorder(),),
+              decoration: const InputDecoration(labelText: 'Modelo'),
             ),
-            const SizedBox(height: 20),
-              Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Año de Fabricación:',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      TextField(
-                        controller: _anoController,
-                        decoration: const InputDecoration(
-                          labelText: 'Ingrese el año de fabricación',
-                          border: OutlineInputBorder(),
-                        ),
-                        keyboardType: TextInputType.number,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 20), // Espaciador entre los campos
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Kilometraje:',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      TextField(
-                        controller: _kilometrajeController,
-                        decoration: const InputDecoration(
-                          labelText: 'Ingrese el Kilometraje',
-                          border: OutlineInputBorder(),
-                        ),
-                        keyboardType: TextInputType.number,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            TextField(
+              controller: _anoController,
+              decoration: const InputDecoration(labelText: 'Año de Fabricación'),
+              keyboardType: TextInputType.number,
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'Compañía de Transporte:',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
-              ), 
-            const SizedBox(height: 10),
             TextField(
               controller: _companiaController,
-              decoration: const InputDecoration(labelText: 'Ingrese Compañía de Transporte'
-              ,border: OutlineInputBorder(),),
+              decoration: const InputDecoration(labelText: 'Compañía de Transporte'),
+            ),
+            TextField(
+              controller: _kilometrajeController,
+              decoration: const InputDecoration(labelText: 'Kilometraje'),
+              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 20.0),
-            Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    Text(
-      'Último Servicio: ${_formatDate(_ultimoServicio)}', 
-      textAlign: TextAlign.left, 
-    ),
-    const SizedBox(height: 10),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.start, 
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            _selectDate(context, _ultimoServicio).then((value) {
-              if (value != null) {
-                setState(() {
-                  _ultimoServicio = value;
+            Text('Último Servicio: ${_formatDate(_ultimoServicio)}'),
+            ElevatedButton(
+              onPressed: () {
+                _selectDate(context, _ultimoServicio).then((value) {
+                  if (value != null) {
+                    setState(() {
+                      _ultimoServicio = value;
+                    });
+                  }
                 });
-              }
-            });
-          },
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.black,
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-          ),
-          child: const Text('Seleccionar Último Servicio'),
-        ), 
-      ],
-    ),
-  ],
-),
+              },
+              child: const Text('Seleccionar Último Servicio'),
+            ),
             const SizedBox(height: 20.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Próximo Servicio: ${_formatDate(_proximoServicio)}', 
-                  textAlign: TextAlign.left,),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start, 
-              children: [
-              ElevatedButton(
+            Text('Próximo Servicio: ${_formatDate(_proximoServicio)}'),
+            ElevatedButton(
               onPressed: () {
                 _selectDate(context, _proximoServicio).then((value) {
                   if (value != null) {
@@ -190,33 +80,37 @@ class _AltaCamionViewState extends State<AltaCamionView> {
                   }
                 });
               },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, 
-                backgroundColor: Colors.black,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                ),
               child: const Text('Seleccionar Próximo Servicio'),
-               ), 
-              ],
-                ),
-              ],
             ),
             const SizedBox(height: 20.0),
-            Center(
-            child: ElevatedButton(
-              onPressed: _guardarCamion,
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, 
-                backgroundColor: Colors.black,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                ),
-              child: const Text('Guardar'),
-             ),
+            ElevatedButton(
+              onPressed: () async {
+                Camion camion = Camion(
+                  matricula: _matriculaController.text,
+                  modelo: _modeloController.text,
+                  anoFabricacion: int.parse(_anoController.text),
+                  companiaTransporte: _companiaController.text,
+                  kilometraje: int.parse(_kilometrajeController.text),
+                  ultimoServicio: _formatDate(_ultimoServicio),
+                  proximoServicio: _formatDate(_proximoServicio),
+                  historialCargas: int.parse(_matriculaController.text),
+                );
+                bool registrado = await _controlador.registrarCamion(camion);
+                // if (registrado) {
+                //   Navigator.pop(context);
+                // } else {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     const SnackBar(
+                //       content: Text('Ya existe un camión con esa matrícula'),
+                //     ),
+                //   );
+                // }
+              },
+              child: const Text('Guardar Camión'),
             ),
           ],
         ),
       ),
-    ),
     );
   }
 
@@ -234,21 +128,5 @@ class _AltaCamionViewState extends State<AltaCamionView> {
     return '${date.day}/${date.month}/${date.year}';
   }
 
-  void _guardarCamion() {
-    // Aquí puedes utilizar los valores de los controladores y las variables
-    // para crear una instancia de la clase Camion o realizar cualquier otra lógica de guardado.
-    // Por ejemplo:
-    // Camion camion = Camion(
-    //   matricula: _matriculaController.text,
-    //   modelo: _modeloController.text,
-    //   anoFabricacion: int.parse(_anoController.text),
-    //   companiaTransporte: _companiaController.text,
-    //   kilometraje: int.parse(_kilometrajeController.text),
-    //   ultimoServicio: _ultimoServicio,
-    //   proximoServicio: _proximoServicio,
-    //   historialCargas: _historialCargas,
-    // );
-
-    // Aquí puedes enviar la instancia de camion a donde necesites, por ejemplo, a una función que maneje el guardado en la base de datos.
-  }
+  
 }

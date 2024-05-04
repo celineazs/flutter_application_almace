@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import '../Modelo/Almacenobjeto.dart'; 
-import 'Vista_EntradaProductoAlmacen.dart'; 
-import 'Vista_SalidaProductoAlmacen.dart';
-import 'Vista_ActualizarProductoAlmacen.dart';
+import 'Vista_EntradaProductoAlmacen.dart'; // Asegúrate de que el nombre del archivo sea correcto
+import 'Vista_SalidaProductoAlmacen.dart'; // Asegúrate de que el nombre del archivo sea correcto
+import 'Vista_ActualizarProductoAlmacen.dart'; // Asegúrate de que el nombre del archivo sea correcto
 
-
-  class Almacen extends StatefulWidget {
+class Almacen extends StatefulWidget {
   const Almacen({super.key});
 
  @override
@@ -58,8 +57,8 @@ class _AlmacenState extends State<Almacen> {
      return Theme(
     data: Theme.of(context).copyWith(
       appBarTheme: const AppBarTheme(
-        backgroundColor: Color.fromARGB(255, 41, 39, 39), 
-        elevation: 0, 
+        backgroundColor: Color.fromARGB(255, 41, 39, 39), // Color negro
+        elevation: 0, // Sin sombra debajo del AppBar
       ),
 
       iconTheme: const IconThemeData(

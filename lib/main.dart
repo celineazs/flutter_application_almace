@@ -1,28 +1,23 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_Login.dart';
+import 'package:flutter_application_almacee/Controlador/Controlador_camiones.dart';
+import 'package:flutter_application_almacee/Vista/Vista_Admin.dart';
 import 'package:flutter_application_almacee/Vista/Vista_registrar.dart';
-import 'package:hive/hive.dart';
 import 'Vista/Vista_MenuAlmacen.dart';
 import 'Vista/Vista_MenuVigilante.dart';
-import 'dart:async';
-import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-void main() async{
-  Hive.init('hive_database');
-  await Hive.openBox('Camiones');
-  await Hive.openBox('EntradasCamiones');
-  await Hive.openBox('SalidasCamiones');
-  await Hive.openBox('HistorialCamiones');
-  await Hive.openBox('Usuarios');
-  await Hive.openBox('Operadores');
-  await Hive.openBox('Agenda');
-  
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Asegurar la inicialización de Flutter
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp( const MyApp());
+  runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -149,6 +144,8 @@ class _LoginPageState extends State<LoginPage> {
   String _email = '';
   String _password = '';
   ControladorLogin controlador = ControladorLogin();
+  ControladorCamiones controladorCamiones = ControladorCamiones();
+  
 
   @override
 Widget build(BuildContext context) {
@@ -160,11 +157,11 @@ Widget build(BuildContext context) {
           height: MediaQuery.of(context).size.height * 0.7, 
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              //begin: Alignment.topCenter,
-              //end: Alignment.bottomCenter,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
               colors: [
-                Color.fromARGB(255, 15, 58, 47),
-                Color.fromARGB(255, 70, 209, 191),
+              Color.fromARGB(255, 15, 58, 47),
+              Color.fromARGB(255, 70, 209, 191),
               ],
             ),
           ),
@@ -201,7 +198,7 @@ Widget build(BuildContext context) {
                     children: [
                       Container(
                         child: ElevatedButton(
-                           onPressed: () async {
+                          onPressed: () async {
                           if (await controlador.login(_email, _password)){
                             if(await controlador.getTipoUsuario(_email) == 1){
                               Navigator.of(context, rootNavigator: true).push(
@@ -209,13 +206,19 @@ Widget build(BuildContext context) {
                                   builder: (context) => const Inicio(),
                                 ),
                               );
-                              }else{
-                                Navigator.of(context, rootNavigator: true).push(
-                                  MaterialPageRoute(builder: (context) => const AlmacenesMenu(),
-                                  ),
-                                );
-                              }
-                            }
+                          }else if (await controlador.getTipoUsuario(_email) == 2) {
+                            Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                builder: (context) => const MenuVigilante(),
+                              ),
+                            );
+                          }else if (await controlador.getTipoUsuario(_email) == 3) {
+                            Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                builder: (context) => VistaAdmin(),
+                              ),
+                            );
+                          }}
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -374,5 +377,11 @@ Widget build(BuildContext context) {
               ),
           );
         }
-        
+
+
 }
+
+
+
+
+

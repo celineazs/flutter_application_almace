@@ -1,18 +1,17 @@
+
 import 'package:flutter/material.dart';
 
-class Reportes extends StatefulWidget {
-  const Reportes({super.key});
-
+class VistaReportes extends StatefulWidget {
  @override
- _ReportesState createState() => _ReportesState();
+ _BitacoraState createState() => _BitacoraState();
 }
 
-class _ReportesState extends State<Reportes> {
+class _BitacoraState extends State<VistaReportes> {
  @override
  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reportes'),
+        title: Text('Bitacora'),
       ),
       body: SingleChildScrollView(
         child: DataTable(
@@ -27,9 +26,9 @@ class _ReportesState extends State<Reportes> {
             10, // Número de filas en la tabla
             (index) => DataRow(
               cells: <DataCell>[
-                const DataCell(Text('Folio ')),
-                const DataCell(Text('Cantidad')),
-                const DataCell(Text('Fecha ')),
+                DataCell(Text('Folio ')),
+                DataCell(Text('Cantidad')),
+                DataCell(Text('Fecha ')),
                 DataCell(Text('Usuario $index')),
                 DataCell(Text('Encargado $index')),
               ],

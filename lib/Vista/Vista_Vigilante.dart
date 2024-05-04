@@ -1,45 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_application_almacee/Controlador/Controlador_camiones.dart';
-import 'package:flutter_application_almacee/Modelo/Camion.dart';
 import 'package:flutter_application_almacee/Vista/HistoryScreen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Agenda.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Camion.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Operador.dart';
-class MenuVigilante extends StatefulWidget {
-  const MenuVigilante({Key? key}) : super(key: key);
+import 'package:flutter_application_almacee/data/data.dart';
+
+class AlmacenesMenu extends StatefulWidget {
+  const AlmacenesMenu({Key? key}) : super(key: key);
 
   @override
-  State<MenuVigilante> createState() => _MenuVigilanteState();
+  State<AlmacenesMenu> createState() => _AlmacenesMenuState();
 }
 
-class _MenuVigilanteState extends State<MenuVigilante> {
-  ControladorCamiones controladorCamiones = ControladorCamiones();
-  List<Camion> camiones = [];
-
+class _AlmacenesMenuState extends State<AlmacenesMenu> {
   @override
- void initState() {
-  super.initState();
-  _cargarCamiones();
-}
-
-Future<void> _cargarCamiones() async {
-  List<Camion> listaCamiones = await controladorCamiones.getCamionesDeBD();
-  setState(() {
-    camiones = listaCamiones;
-  });
-}
-
-  @override
-Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
         appBarTheme: const AppBarTheme(
           backgroundColor: Color.fromARGB(255, 41, 39, 39),
-          elevation: 0,
-        ),
-        iconTheme: const IconThemeData(
-          color: Color.fromARGB(255, 243, 238, 238),
-        ),
+           elevation: 0,
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+      ),
       ),
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 243, 238, 238),
@@ -63,19 +47,8 @@ Widget build(BuildContext context) {
                     Row(
                       children: [
                         const Padding(padding: EdgeInsets.only(left: 30.0)),
-                        const Text(
-                          'Buscar',
-                          style: TextStyle(color: Colors.white, fontSize: 25),
-                        ),
+                        
                         Expanded(child: Container()),
-                        SizedBox(
-                          height: 100,
-                          child: IconButton(
-                            icon: const Icon(Icons.search, size: 25),
-                            color: Colors.white,
-                            onPressed: () {},
-                          ),
-                        ),
                       ],
                     ),
                   ],

@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
-import '../Modelo/Almacenfactura.dart'; 
-class Facturas extends StatelessWidget {
-   Facturas({Key? key}) : super(key: key);
-  
-  final List<Almacenfactura> facturas = [
-    Almacenfactura(numero: 1, proveedor: 'Proveedor A', fecha: DateTime(2022, 4, 8), total: 150.00),
-    Almacenfactura(numero: 2, proveedor: 'Proveedor B', fecha: DateTime(2022, 4, 9), total: 200.00),
-    // Agrega más facturas según sea necesario
-  ];
 
+class Facturas extends StatelessWidget {
+  const Facturas({super.key});
 
   
  @override
@@ -99,46 +92,21 @@ class Facturas extends StatelessWidget {
           ),
         ),
           Positioned(
-  top: 90, 
-  left: 0,
-  right: 0,
-  child: Padding(
-    padding: const EdgeInsets.only(
-      left: 25.0,
-      right: 25.0,
-    ),
-    child: Container(
-      height: 70,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [
-          const Spacer(),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: TextField(
-                decoration: const InputDecoration(
-                  hintText: 'Buscar',
-                  border: InputBorder.none,
-                ),
-                onChanged: (value) {
-                  // Puedes agregar lógica para manejar los cambios en el texto de búsqueda aquí
-                },
+          top: 90, // Ajusta la posición aquí
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 25.0,
+              right: 25.0,
+            ),
+            child: Container(
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
               ),
             ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Aquí puedes agregar la lógica para ejecutar la búsqueda
-            },
-          ),
-        ],
-      ),
-    ),
           ),
         ),
         ],
