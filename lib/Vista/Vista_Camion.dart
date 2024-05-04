@@ -31,32 +31,26 @@ Future<void> _cargarCamiones() async {
 
 
   @override
-Widget build(BuildContext context) {
-
-
+  Widget build(BuildContext context) {
   return Theme(
   data: Theme.of(context).copyWith(
   appBarTheme: const AppBarTheme(
-  backgroundColor: Color.fromARGB(255, 41, 39, 39), // Color negro
+  backgroundColor: Color.fromARGB(255, 41, 39, 39), 
   elevation: 0,
-  ),
-  iconTheme: const IconThemeData(
-  color: Colors.white,
   ),
   ),
   child: Scaffold(
   backgroundColor: Colors.white,
   appBar: AppBar(
   leading: IconButton(
-    icon: const Icon(Icons.arrow_back),
+    icon: const Icon(Icons.arrow_back_ios_new_outlined,color: Colors.white,),
     onPressed: () {
     Navigator.pop(context); 
     },
   ),
   actions: [
     IconButton(
-      
-    icon: const Icon(Icons.add),
+    icon: const Icon(Icons.add_outlined,size: 30,),
     color: Colors.white,
     onPressed: () {
        Navigator.push(
