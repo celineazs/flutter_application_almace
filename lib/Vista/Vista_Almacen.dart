@@ -58,11 +58,7 @@ class _AlmacenState extends State<Almacen> {
     data: Theme.of(context).copyWith(
       appBarTheme: const AppBarTheme(
         backgroundColor: Color.fromARGB(255, 41, 39, 39), // Color negro
-        elevation: 0, // Sin sombra debajo del AppBar
-      ),
-
-      iconTheme: const IconThemeData(
-        color: Color.fromARGB(255, 243, 238, 238),
+        elevation: 0, 
       ),
     ),
        child: Stack(

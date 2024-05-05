@@ -4,6 +4,8 @@ import 'package:flutter_application_almacee/Modelo/Usuario.dart';
 import 'package:flutter_application_almacee/Vista/Vista_registrar.dart';
 
 class VistaGestionUsuario extends StatefulWidget {
+  const VistaGestionUsuario({super.key});
+
   @override
   State<VistaGestionUsuario> createState() => _VistaGestionUsuarioState();
 }
@@ -11,6 +13,7 @@ class VistaGestionUsuario extends StatefulWidget {
 class _VistaGestionUsuarioState extends State<VistaGestionUsuario> {
   List<Usuario> usuarios = [];
   final ControladorLogin controlador = ControladorLogin();
+  @override
   void initState() {
   super.initState();
   _cargarUsuarios();
@@ -39,11 +42,11 @@ Future<void> _cargarUsuarios() async {
         backgroundColor: Colors.white,
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back_ios_new_outlined,color: Colors.white,),
             onPressed: () {
-              Navigator.pop(context); // Add the pop function to go back
-            },
-          ),
+              Navigator.pop(context); 
+              },
+      ),
           actions: [
             IconButton(
               icon: const Icon(Icons.add),
