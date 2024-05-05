@@ -12,7 +12,7 @@ class VistaAdmin extends StatefulWidget {
 
 class _VistaAdminState extends State<VistaAdmin> {
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
   return Scaffold(
     body: Stack(
       children: [
@@ -83,7 +83,7 @@ class _VistaAdminState extends State<VistaAdmin> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           side: const BorderSide(color: Colors.grey),
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.grey[100],
                         ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,7 +126,7 @@ class _VistaAdminState extends State<VistaAdmin> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           side: const BorderSide(color: Colors.grey),
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.grey[100],
                         ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -163,7 +163,7 @@ class _VistaAdminState extends State<VistaAdmin> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           side: const BorderSide(color: Colors.grey),
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.grey[100],
                         ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,7 +206,7 @@ class _VistaAdminState extends State<VistaAdmin> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           side: const BorderSide(color: Colors.grey),
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.grey[100],
                         ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -237,25 +237,24 @@ class _VistaAdminState extends State<VistaAdmin> {
           ),
         ),
         Positioned(
-  top: MediaQuery.of(context).padding.top + 135,
-  right: 30,
-  child: Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(color: Colors.black, width: 2),
-      color: Colors.black, // Color de fondo blanco
-    ),
-    child: IconButton(
-      icon: const Icon(Icons.exit_to_app, size: 30,color: Colors.white,),
-      onPressed: () {
-        // Acción para salir
-      },
-    ),
-  ),
-),
+          top: MediaQuery.of(context).padding.top + 135,
+          right: 30,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.black, width: 2),
+              color: Colors.black, // Color de fondo blanco
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.exit_to_app, size: 30,color: Colors.white,),
+              onPressed: () {
+                // Acción para salir
+              },
+            ),
+          ),
+        ),
       ],
     ),
   );
 }
-
 }

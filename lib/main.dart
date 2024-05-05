@@ -17,10 +17,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
    runApp( const MyApp());
-  // runApp(const MaterialApp(
-  //   debugShowCheckedModeBanner: false,
-  //   home: VistaAdmin(),
-  // ));
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: VistaAdmin(),
+  ));
 }
 
 
