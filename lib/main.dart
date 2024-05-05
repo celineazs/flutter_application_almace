@@ -12,14 +12,14 @@ import 'firebase_options.dart';
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Asegurar la inicialización de Flutter
+  WidgetsFlutterBinding.ensureInitialized(); 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
    runApp( const MyApp());
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: AltaCamionView(),
+    home: MenuVigilante(),
   ));
 }
 
@@ -220,7 +220,7 @@ Widget build(BuildContext context) {
                           }else if (await controlador.getTipoUsuario(_email) == 3) {
                             Navigator.of(context, rootNavigator: true).push(
                               MaterialPageRoute(
-                                builder: (context) => VistaAdmin(),
+                                builder: (context) => const VistaAdmin(),
                               ),
                             );
                           }}
@@ -231,25 +231,6 @@ Widget build(BuildContext context) {
                           ),
                           child: const Text(
                             'INGRESAR',
-                            style: TextStyle(color: Color.fromARGB(255, 70, 209, 191), fontSize: 20),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                builder: (context) => const RegistroUsuarios(),
-                              ),
-                            );
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                            elevation: MaterialStateProperty.all(0),
-                          ),
-                          child: const Text(
-                            'REGISTRARSE',
                             style: TextStyle(color: Color.fromARGB(255, 70, 209, 191), fontSize: 20),
                           ),
                         ),
