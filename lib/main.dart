@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_Login.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_camiones.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Admin.dart';
+import 'package:flutter_application_almacee/Vista/Vista_GestionUsuarios.dart';
 import 'package:flutter_application_almacee/Vista/Vista_altasCamiones.dart';
 import 'package:flutter_application_almacee/Vista/Vista_registrar.dart';
 import 'Vista/Vista_MenuAlmacen.dart';
@@ -19,7 +20,7 @@ void main() async {
    runApp( const MyApp());
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: VistaAdmin(),
+    home: VistaGestionUsuario(),
   ));
 }
 
