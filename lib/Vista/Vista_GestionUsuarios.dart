@@ -51,6 +51,7 @@ Widget build(BuildContext context) {
                   Color.fromARGB(255, 52, 174, 190),
                 ],
               ),
+              
             ),
           ),
           Expanded(
@@ -108,6 +109,10 @@ Widget build(BuildContext context) {
               onPressed: () {
                 Navigator.pop(context);
               },
+            ),
+            title: const Text(
+              'Usuarios',
+              style: TextStyle(color: Colors.white, fontSize: 30),
             ),
             actions: [
               IconButton(
