@@ -7,7 +7,18 @@ class Actualizar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Actualizar'),
+        title: const Text('Actualizar', style: TextStyle(color: Colors.white),),
+        backgroundColor: const Color.fromARGB(255, 41, 39, 39),
+          elevation: 0,
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_sharp),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -76,48 +87,52 @@ class Actualizar extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              Center(
-                child: DropdownButton<String>(
-                  value: 'Selecciona un campo',
-                  icon: const Icon(Icons.arrow_drop_down),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.deepPurpleAccent,
-                  ),
-                  onChanged: (String? newValue) {
-                    // Lógica para cambiar el valor seleccionado
-                  },
-                  items: <String>[
-                    'Selecciona un campo',
-                    'Folio',
-                    'Nombre',
-                    'Cantidad',
-                    'Marca',
-                    'Medición'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
+             Row(
+  mainAxisAlignment: MainAxisAlignment.end,
+  children: [
+    DropdownButton<String>(
+      value: 'Selecciona un campo',
+      icon: const Icon(Icons.arrow_drop_down),
+      iconSize: 24,
+      elevation: 16,
+      style: const TextStyle(color: Colors.black),
+      underline: Container(
+        height: 2,
+        color: Colors.black,
+      ),
+      onChanged: (String? newValue) {
+        // Lógica para cambiar el valor seleccionado
+      },
+      items: <String>[
+        'Selecciona un campo',
+        'Folio',
+        'Nombre',
+        'Cantidad',
+        'Marca',
+        'Medición'
+      ].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(
+            value,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        );
+      }).toList(),
+    ),
+  ],
+),
+
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
                   // Lógica para actualizar
                 },
                 style: ElevatedButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
+                foregroundColor: Colors.white, 
+                backgroundColor: Colors.black,
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 ),
                 child: const Text('Actualizar',),
               ),

@@ -2,10 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_Login.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_camiones.dart';
+import 'package:flutter_application_almacee/Vista/Vista_ActualizarProductoAlmacen.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Admin.dart';
-import 'package:flutter_application_almacee/Vista/Vista_GestionUsuarios.dart';
-import 'package:flutter_application_almacee/Vista/Vista_altasCamiones.dart';
-import 'package:flutter_application_almacee/Vista/Vista_registrar.dart';
+import 'package:flutter_application_almacee/Vista/Vista_Almacen.dart';
+import 'package:flutter_application_almacee/Vista/Vista_EntradaProductoAlmacen.dart';
+import 'package:flutter_application_almacee/Vista/Vista_SalidaProductoAlmacen.dart';
 import 'Vista/Vista_MenuAlmacen.dart';
 import 'Vista/Vista_MenuVigilante.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,7 +21,7 @@ void main() async {
    runApp( const MyApp());
   // runApp(const MaterialApp(
   //   debugShowCheckedModeBanner: false,
-  //   home: VistaAdmin(),
+  //   home: Inicio(),
   // ));
 }
 
@@ -215,7 +216,7 @@ Widget build(BuildContext context) {
                           }else if (await controlador.getTipoUsuario(_email) == 2) {
                             Navigator.of(context, rootNavigator: true).push(
                               MaterialPageRoute(
-                                builder: (context) => const MenuVigilante(),
+                                builder: (context) => MenuVigilante(),
                               ),
                             );
                           }else if (await controlador.getTipoUsuario(_email) == 3) {

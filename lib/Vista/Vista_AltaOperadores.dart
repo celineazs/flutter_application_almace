@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_Operador.dart';
-import 'package:flutter_application_almacee/Modelo/Operador.dart';
 
 class VistaAltasOperadores extends StatefulWidget {
   const VistaAltasOperadores({super.key});
@@ -18,8 +17,8 @@ class _VistaAltasOperadoresState extends State<VistaAltasOperadores> {
   final ControladorOperador controlador = ControladorOperador();
 
 
-   @override
-  Widget build(BuildContext context) {
+  @override
+Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Vista de Chofer'),

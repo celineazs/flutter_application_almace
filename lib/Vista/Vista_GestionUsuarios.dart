@@ -4,8 +4,6 @@ import 'package:flutter_application_almacee/Modelo/Usuario.dart';
 import 'package:flutter_application_almacee/Vista/Vista_registrar.dart';
 
 class VistaGestionUsuario extends StatefulWidget {
-  const VistaGestionUsuario({super.key});
-
   @override
   State<VistaGestionUsuario> createState() => _VistaGestionUsuarioState();
 }
@@ -13,7 +11,6 @@ class VistaGestionUsuario extends StatefulWidget {
 class _VistaGestionUsuarioState extends State<VistaGestionUsuario> {
   List<Usuario> usuarios = [];
   final ControladorLogin controlador = ControladorLogin();
-  @override
   void initState() {
   super.initState();
   _cargarUsuarios();
@@ -27,7 +24,7 @@ Future<void> _cargarUsuarios() async {
 }
 
   @override
-Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
   return Theme(
     data: Theme.of(context).copyWith(
       appBarTheme: const AppBarTheme(

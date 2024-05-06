@@ -4,95 +4,92 @@ class HistorialSalida extends StatelessWidget {
   const HistorialSalida({super.key});
 
  @override
-  Widget build(BuildContext context) {
-     return Theme(
-    data: Theme.of(context).copyWith(
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Color.fromARGB(255, 41, 39, 39), // Color negro
-        elevation: 0, // Sin sombra debajo del AppBar
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text(
+        'Consulta de productos',
+        style: TextStyle(color: Colors.white),
       ),
-
+      backgroundColor: Colors.transparent,
+      elevation: 0,
       iconTheme: const IconThemeData(
-        color: Color.fromARGB(255, 243, 238, 238),
+        color: Colors.white,
+      ),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios_new_sharp),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      centerTitle: true,
+      toolbarHeight: 80,
+      flexibleSpace: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 15, 58, 47),
+              Color.fromARGB(255, 52, 174, 190),
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+        ),
       ),
     ),
-       child: Stack(
-        children: [
-          Scaffold(
-            backgroundColor: const Color.fromARGB(255, 243, 238, 238),
-            body: Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.15,
-                  decoration: const BoxDecoration(color: Color.fromARGB(255, 41, 39, 39)),
-                ),
-                
-                Container(
-          width: MediaQuery.of(context).size.width, // Ancho de esquina a esquina
-          margin: const EdgeInsets.only(top: 40),
-          height: 60, // Altura del rectángulo
-          color: Colors.white, // Color del rectángulo
+    body: Column(
+      children: [
+        const Expanded(
+          child: SingleChildScrollView(
+          ),
         ),
-              ],
-              
-            ),
-            bottomNavigationBar: BottomAppBar(
-              padding: const EdgeInsets.only(
-                left: 50.0,
-                right: 50,
-                top: 5,
-                bottom: 20,
-              ),
-              color: Colors.transparent,
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.1,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 41, 39, 39),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: const Row(
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Ajusta el margen
+          height: MediaQuery.of(context).size.height * 0.08, // Ajusta la altura
+         decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 41, 39, 39),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              // IconButton(
+              //   icon: const Icon(Icons.file_upload_outlined, size: 40),
+              //   color: Colors.white,
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => const Altas()),
+              //     );
+              //   },
+              // ),
+              SizedBox(width: 20),
+              // IconButton(
+              //   icon: const Icon(Icons.file_download_outlined, size: 40),
+              //   color: Colors.white,
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => const Bajas()),
+              //     );
+              //   },
+              // ),
+              SizedBox(width: 20),
+              // IconButton(
+              //   icon: const Icon(Icons.edit_note_outlined, size: 40),
+              //   color: Colors.white,
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => const Actualizar()),
+              //     );
+              //   },
+              // ),
             ],
           ),
-              ),
-            ),
-          ),
-          const Align(
-          alignment: Alignment.topCenter,
-          child: Padding(
-            padding: EdgeInsets.only(top: 40.0),
-            child: Text(
-              'Historial de Saida Logo aquí',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.none,
-              ),
-            ),
-          ),
         ),
-          Positioned(
-          top: 90, // Ajusta la posición aquí
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 25.0,
-              right: 25.0,
-            ),
-            child: Container(
-              height: 70,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-          ),
-        ),
-        ],
-      ),
-    );
-  }
+      ],
+    ),
+  );
+}
 }

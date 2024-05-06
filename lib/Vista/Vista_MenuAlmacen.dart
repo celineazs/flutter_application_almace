@@ -1,3 +1,4 @@
+// Inicio.dart
 import 'package:flutter/material.dart';
 import 'Vista_Almacen.dart'; 
 import 'Vista_AlmacenReportes.dart';
@@ -13,7 +14,7 @@ class Inicio extends StatefulWidget {
 
 class _InicioState extends State<Inicio> {
   @override
-Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
   return Scaffold(
     body: Stack(
       children: [
@@ -74,6 +75,7 @@ Widget build(BuildContext context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      
                       SizedBox(
   width: MediaQuery.of(context).size.width * 0.4,
   height: MediaQuery.of(context).size.width * 0.4,
@@ -90,6 +92,7 @@ Widget build(BuildContext context) {
       ),
       side: const BorderSide(color: Colors.grey),
     ),
+    
     child: const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -100,7 +103,7 @@ Widget build(BuildContext context) {
         ),
         SizedBox(height: 10), 
         Text(
-          'Almacen',
+          'Almacén',
           style: TextStyle(color: Colors.black),
         ),
       ],
@@ -168,13 +171,13 @@ Widget build(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(
-          Icons.history_edu_outlined,
+          Icons.search,
           size: 40,
           color: Colors.black,
         ),
         SizedBox(height: 10), 
         Text(
-          'Historial de Salida',
+          'Catálogo de Productos',
           style: TextStyle(color: Colors.black),
         ),
       ],
@@ -188,7 +191,7 @@ Widget build(BuildContext context) {
     onPressed: () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => VistaReportes()),
+        MaterialPageRoute(builder: (context) => const VistaReportes()),
       );
     },
     style: ElevatedButton.styleFrom(

@@ -94,6 +94,4 @@ Future<void> _cargarCamiones() async {
   ),
   );
 }
-
-
 }

@@ -1,13 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_almacee/Controlador/Controlador_Almacen.dart';
 
-class Bajas extends StatelessWidget {
-  const Bajas({super.key});
+class Bajas extends StatefulWidget {
+  const Bajas({Key? key}) : super(key: key);
 
- @override
+  @override
+  State<Bajas> createState() => _BajasState();
+}
+
+class _BajasState extends State<Bajas> {
+  ControladorAlmacen controlador = ControladorAlmacen();
+
+  final folioController = TextEditingController();
+  final cantidadController = TextEditingController();
+  final usuarioController = TextEditingController();
+
+  @override
+  void dispose() {
+    folioController.dispose();
+    cantidadController.dispose();
+    usuarioController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bajas'),
+        title: const Text('Bajas', style: TextStyle(color: Colors.white),),
+        backgroundColor: const Color.fromARGB(255, 41, 39, 39),
+          elevation: 0,
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_sharp),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -21,21 +52,10 @@ class Bajas extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: folioController,
+                decoration: const InputDecoration(
                   labelText: 'Folio',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Nombre",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Nombre',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -45,69 +65,10 @@ class Bajas extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: cantidadController,
+                decoration: const InputDecoration(
                   labelText: 'Cantidad',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Medición",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Medición',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Marca",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Marca',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Hora",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Hora',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Fecha",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Fecha',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Almacenista",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Almacenista',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -117,21 +78,37 @@ class Bajas extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: usuarioController,
+                decoration: const InputDecoration(
                   labelText: 'Usuario Despachado',
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {
-                  // Lógica para agregar
+                onPressed: () async {
+                  final folio = folioController.text;
+                  final cantidad = int.parse(cantidadController.text);
+                  final usuario = usuarioController.text;
+                  if(await controlador.eliminarProducto(folio, cantidad, usuario)){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Producto eliminado correctamente'),
+                      ),
+                    );
+                  }else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Error al eliminar el producto'),
+                      ),
+                    );
+                  }
                 },
-                style: ElevatedButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
+               style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, 
+                backgroundColor: Colors.black,
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 ),
                 child: const Text('Agregar'),
               ),

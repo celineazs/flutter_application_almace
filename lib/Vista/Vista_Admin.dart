@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_almacee/Vista/Vista_AltasAgenda.dart';
 import 'package:flutter_application_almacee/Vista/Vista_GestionUsuarios.dart';
 import 'package:flutter_application_almacee/Vista/Vista_MenuAlmacen.dart';
 import 'package:flutter_application_almacee/Vista/Vista_MenuVigilante.dart';
@@ -116,7 +117,7 @@ Widget build(BuildContext context) {
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
-                              builder: (context) => const MenuVigilante(),
+                              builder: (context) =>  MenuVigilante(),
                             ),
                           );
                         },
@@ -156,7 +157,14 @@ Widget build(BuildContext context) {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                              builder: (context) =>  VistaAltaAgenda(),
+                            ),
+                          );
+
+                        },
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 20),
                           shape: RoundedRectangleBorder(
@@ -196,7 +204,7 @@ Widget build(BuildContext context) {
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
-                              builder: (context) => const VistaGestionUsuario(),
+                              builder: (context) =>  VistaGestionUsuario(),
                             ),
                           );
                         },
@@ -257,4 +265,5 @@ Widget build(BuildContext context) {
     ),
   );
 }
+
 }
