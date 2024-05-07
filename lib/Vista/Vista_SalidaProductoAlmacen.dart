@@ -17,28 +17,16 @@ class _BajasState extends State<Bajas> {
 
   @override
   void dispose() {
-    folioController.dispose();
-    cantidadController.dispose();
-    usuarioController.dispose();
-    super.dispose();
+    folioController.clear();
+    cantidadController.clear();
+    usuarioController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bajas', style: TextStyle(color: Colors.white),),
-        backgroundColor: const Color.fromARGB(255, 41, 39, 39),
-          elevation: 0,
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_sharp),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+        title: const Text('Bajas'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -85,7 +73,7 @@ class _BajasState extends State<Bajas> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () async {
                   final folio = folioController.text;
@@ -104,11 +92,12 @@ class _BajasState extends State<Bajas> {
                       ),
                     );
                   }
+                  dispose();
                 },
-               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, 
-                backgroundColor: Colors.black,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                style: ElevatedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
                 ),
                 child: const Text('Agregar'),
               ),
