@@ -160,7 +160,7 @@ Widget build(BuildContext context) {
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
-                              builder: (context) =>  VistaAltaAgenda(),
+                              builder: (context) =>  const VistaAltaAgenda(),
                             ),
                           );
 
@@ -256,7 +256,7 @@ Widget build(BuildContext context) {
             child: IconButton(
               icon: const Icon(Icons.exit_to_app, size: 30,color: Colors.white,),
               onPressed: () {
-                // Acción para salir
+                Navigator.pop(context);
               },
             ),
           ),
@@ -265,5 +265,4 @@ Widget build(BuildContext context) {
     ),
   );
 }
-
 }

@@ -64,7 +64,7 @@ Future<void> cargarRegistrosInfraccionesOperador() async {
             title: Text('Contacto: ${widget.operador.contacto}'),
           ),
           ListTile(
-            title: Text('Estado de Salud: ${widget.operador.estadoSalud}'),
+            title: Text('Estado de Salud: ${widget.operador.estado}'),
           ),
 
           const ListTile(

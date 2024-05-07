@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_almacee/Modelo/Usuario.dart';
 
 class ControladorLogin {
-
+  final CollectionReference _usuariosCollection =FirebaseFirestore.instance.collection('Usuarios');
   Future<List<Usuario>> getUsuariosFromFirebase() async {
     List<Usuario> usuarios = [];
     final querySnapshot = await _usuariosCollection.get();
@@ -18,27 +18,13 @@ class ControladorLogin {
     return usuarios;
   }
 
-  final CollectionReference _usuariosCollection =FirebaseFirestore.instance.collection('Usuarios');
-      
- Future<bool> login(String email, String password) async {
+
+Future<int> loginAndGetTipoUsuario(String email, String password) async {
   QuerySnapshot querySnapshot = await _usuariosCollection
       .where('nombre', isEqualTo: email)
       .where('contrasena', isEqualTo: password)
       .get();
-  return querySnapshot.docs.isNotEmpty;
-}
 
-Future<bool> isAdmin(String email) async {
-  QuerySnapshot querySnapshot = await _usuariosCollection
-      .where('nombre', isEqualTo: email)
-      .where('esAdmin', isEqualTo: true)
-      .get();
-  return querySnapshot.docs.isNotEmpty;
-}
-
-Future<int> getTipoUsuario(String email) async {
-  QuerySnapshot querySnapshot =
-      await _usuariosCollection.where('nombre', isEqualTo: email).get();
   if (querySnapshot.docs.isNotEmpty) {
     var usuario = querySnapshot.docs.first;
     switch (usuario['tipoUsuario']) {
@@ -52,5 +38,4 @@ Future<int> getTipoUsuario(String email) async {
   }
   return 0; // No se encontró el usuario
 }
-
 }

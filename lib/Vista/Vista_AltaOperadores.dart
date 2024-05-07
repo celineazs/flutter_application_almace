@@ -21,7 +21,7 @@ class _VistaAltasOperadoresState extends State<VistaAltasOperadores> {
 Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Vista de Chofer'),
+        title: const Text('Alta Operador'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -121,68 +121,6 @@ Widget build(BuildContext context) {
               const TextField(
                 decoration: InputDecoration(
                   hintText: 'Ingrese el contacto del chofer',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Último Servicio:',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Ingrese la fecha del último servicio',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Próximo Servicio:',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Ingrese la fecha del próximo servicio',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Historial de Viajes:',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const TextField(
-                maxLines: 3,
-                decoration: InputDecoration(
-                  hintText: 'Ingrese el historial de viajes del chofer',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Documentación:',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const TextField(
-                maxLines: 3,
-                decoration: InputDecoration(
-                  hintText: 'Ingrese la documentación del chofer',
                   border: OutlineInputBorder(),
                 ),
               ),

@@ -48,7 +48,7 @@ class _AltasState extends State<Altas> {
             },
           ),
       ),
-      body: Padding(
+       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
@@ -63,7 +63,7 @@ class _AltasState extends State<Altas> {
               TextField(
                 controller: folioController,
                 decoration: const InputDecoration(
-                  labelText: 'Ingrese folio',
+                  labelText: 'Folio',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -76,7 +76,7 @@ class _AltasState extends State<Altas> {
               TextField(
                 controller: nombreController,
                 decoration: const InputDecoration(
-                  labelText: 'Ingrese nombre',
+                  labelText: 'Nombre',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -89,7 +89,7 @@ class _AltasState extends State<Altas> {
               TextField(
                 controller: cantidadController,
                 decoration: const InputDecoration(
-                  labelText: 'Ingrese la cantidad',
+                  labelText: 'Cantidad',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -102,7 +102,7 @@ class _AltasState extends State<Altas> {
               TextField(
                 controller: marcaController,
                 decoration: const InputDecoration(
-                  labelText: 'Ingrese la marca',
+                  labelText: 'Marca',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -115,7 +115,7 @@ class _AltasState extends State<Altas> {
               TextField(
                 controller: medicionController,
                 decoration: const InputDecoration(
-                  labelText: 'Ingrese la medida',
+                  labelText: 'Medición',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -128,12 +128,12 @@ class _AltasState extends State<Altas> {
               TextField(
                 controller: proveedorController,
                 decoration: const InputDecoration(
-                  labelText: 'Ingrese el proveedor',
+                  labelText: 'Proveedor',
                   border: OutlineInputBorder(),
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () async {
                   Almacenobjeto producto = Almacenobjeto(
@@ -158,6 +158,7 @@ class _AltasState extends State<Altas> {
                       ),
                     );
                   }
+                  dispose();
                 },
                 style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, 

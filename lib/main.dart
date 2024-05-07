@@ -2,11 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_Login.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_camiones.dart';
-import 'package:flutter_application_almacee/Vista/Vista_ActualizarProductoAlmacen.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Admin.dart';
-import 'package:flutter_application_almacee/Vista/Vista_Almacen.dart';
-import 'package:flutter_application_almacee/Vista/Vista_EntradaProductoAlmacen.dart';
-import 'package:flutter_application_almacee/Vista/Vista_SalidaProductoAlmacen.dart';
 import 'Vista/Vista_MenuAlmacen.dart';
 import 'Vista/Vista_MenuVigilante.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,15 +10,11 @@ import 'firebase_options.dart';
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); 
+  WidgetsFlutterBinding.ensureInitialized(); // Asegurar la inicialización de Flutter
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-   runApp( const MyApp());
-  // runApp(const MaterialApp(
-  //   debugShowCheckedModeBanner: false,
-  //   home: Inicio(),
-  // ));
+  runApp(const MyApp());
 }
 
 
@@ -73,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 15, 58, 47),
+              Color.fromARGB(255, 79, 212, 184),
               Color.fromARGB(255, 70, 209, 191),
             ],
           ),
@@ -148,228 +140,250 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _showPassword = false;
   final _formKey = GlobalKey<FormState>();
-  String _email = '';
-  String _password = '';
   ControladorLogin controlador = ControladorLogin();
   ControladorCamiones controladorCamiones = ControladorCamiones();
-  
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
 
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    body: Stack(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.7, 
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-              Color.fromARGB(255, 15, 58, 47),
-              Color.fromARGB(255, 70, 209, 191),
+  void dispose() {
+    _emailController.clear();
+    _passwordController.clear();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.7,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 15, 58, 47),
+                  Color.fromARGB(255, 70, 209, 191),
+                ],
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 40,
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset(
+                    'lib/assets/camion.png',
+                    width: 90,
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
           ),
-          child: Stack(
-    children: [
-      Positioned(
-        top: 40, 
-        width: MediaQuery.of(context).size.width,
-        child: Image.asset(
-          'lib/assets/camion.png', width: 90,
-          color: Colors.white, 
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.7,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(90),
+                ),
               ),
-             ),
-            ], 
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.7, 
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(90),
-              ),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: ElevatedButton(
-                          onPressed: () async {
-                          if (await controlador.login(_email, _password)){
-                            if(await controlador.getTipoUsuario(_email) == 1){
-                              Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const Inicio(),
-                                ),
-                              );
-                          }else if (await controlador.getTipoUsuario(_email) == 2) {
-                            Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                builder: (context) => MenuVigilante(),
-                              ),
-                            );
-                          }else if (await controlador.getTipoUsuario(_email) == 3) {
-                            Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                builder: (context) => const VistaAdmin(),
-                              ),
-                            );
-                          }}
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                            elevation: MaterialStateProperty.all(0),
-                          ),
-                          child: const Text(
-                            'INGRESAR',
-                            style: TextStyle(color: Color.fromARGB(255, 70, 209, 191), fontSize: 20),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 40),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                             borderRadius: BorderRadius.circular(10),
-                             boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 5,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 15),
-                              const Padding(
-                              padding: EdgeInsets.only(left: 8), 
-                              child: Text('Usuario',style: TextStyle(color: Colors.black, fontSize: 17),
-                           ),
-                       ),
-                            TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: '',
-                              hintStyle: TextStyle(color: Colors.grey,fontSize: 17,),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                            ),
-                            style: const TextStyle(color: Colors.black),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Introduce aquí tu usuario';
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (await controlador.loginAndGetTipoUsuario(
+                                      _emailController.text,
+                                      _passwordController.text) ==
+                                  1) {
+                                Navigator.of(context, rootNavigator: true).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const Inicio(),
+                                  ),
+                                );
+                              } else if (await controlador.loginAndGetTipoUsuario(
+                                      _emailController.text,
+                                      _passwordController.text) ==
+                                  2) {
+                                Navigator.of(context, rootNavigator: true).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const MenuVigilante(),
+                                  ),
+                                );
+                              } else if (await controlador.loginAndGetTipoUsuario(
+                                      _emailController.text,
+                                      _passwordController.text) ==
+                                  3) {
+                                Navigator.of(context, rootNavigator: true).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const VistaAdmin(),
+                                  ),
+                                );
                               }
-                              return null;
+                              dispose();
                             },
-                            onChanged: (value) {
-                              setState(() {
-                                _email = value;
-                               }
-                             );
-                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.transparent),
+                              elevation: MaterialStateProperty.all(0),
                             ),
-                            ],
+                            child: const Text(
+                              'INGRESAR',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 70, 209, 191),
+                                  fontSize: 20),
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 30),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                            BoxShadow(color: Colors.black12,blurRadius: 5,
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 40),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 15),
-                            Row(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                const SizedBox(height: 15),
                                 const Padding(
-                                  padding: EdgeInsets.only(left: 8), 
-                                  child: Text('Contraseña',style: TextStyle(color: Colors.black, fontSize: 17),
+                                  padding: EdgeInsets.only(left: 8),
+                                  child: Text(
+                                    'Usuario',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 17),
                                   ),
+                                ),
+                                TextFormField(
+                                  controller: _emailController,
+                                  decoration: const InputDecoration(
+                                    hintText: '',
+                                    hintStyle: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 17,
+                                    ),
+                                    border: InputBorder.none,
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 10),
                                   ),
-                                  Expanded(child: Container()),
-                                  IconButton(
-                                    icon: Icon(_showPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined, 
-                                    color: const Color.fromARGB(255, 70, 209, 191), 
-                                    size: 25),
-                                    onPressed: () { 
-                                      setState(() {
-                                        _showPassword = !_showPassword; 
+                                  style: const TextStyle(color: Colors.black),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Introduce aquí tu usuario';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 30),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 15),
+                                Row(
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.only(left: 8),
+                                      child: Text(
+                                        'Contraseña',
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 17),
+                                      ),
+                                    ),
+                                    Expanded(child: Container()),
+                                    IconButton(
+                                      icon: Icon(
+                                        _showPassword
+                                            ? Icons.visibility_outlined
+                                            : Icons.visibility_off_outlined,
+                                        color:
+                                            const Color.fromARGB(255, 70, 209, 191),
+                                        size: 25,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _showPassword = !_showPassword;
                                         });
-                                      }
+                                      },
                                     ),
                                   ],
                                 ),
                                 TextFormField(
-                                  obscureText: !_showPassword, 
+                                  controller: _passwordController,
+                                  obscureText: !_showPassword,
                                   decoration: const InputDecoration(
                                     hintText: '',
-                                    hintStyle: TextStyle(color: Colors.grey, fontSize: 17),
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey, fontSize: 17),
                                     border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                                    ),
-                                    style: const TextStyle(color: Colors.black),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Ingrese su contraseña';
-                                        }
-                                        return null;
-                                        },
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _password = value;
-                                            });
-                                          },
-                                        ),
-                                      ],
-                                    ),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 10),
                                   ),
-                                  const SizedBox(height: 25.0),
-                                ],
-                              ),
+                                  style: const TextStyle(color: Colors.black),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Ingrese su contraseña';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
                             ),
-                          ],
-                        )
+                          ),
+                          const SizedBox(height: 25.0),
+                        ],
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-          );
-        }
-
-
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
-
-
-
-
-

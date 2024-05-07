@@ -3,14 +3,14 @@ class Operador {
   String nombre;
   String licenciaConducir;
   String contacto;
-  String estadoSalud;
+  String estado;
 
   Operador({
     required this.IdChofer,
     required this.nombre,
     required this.licenciaConducir,
     required this.contacto,
-    required this.estadoSalud,
+    required this.estado,
   });
   Map<String, dynamic> toMap() {
     return {
@@ -18,7 +18,7 @@ class Operador {
       'nombre': nombre,
       'licenciaConducir': licenciaConducir,
       'contacto': contacto,
-      'estadoSalud': estadoSalud,
+      'estadoSalud': estado,
     };
   }
 }
