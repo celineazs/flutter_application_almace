@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_almacee/Modelo/Camion.dart';
 // ignore: camel_case_types

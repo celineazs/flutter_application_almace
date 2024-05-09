@@ -22,33 +22,41 @@ class _AltasState extends State<Altas> {
 
   @override
   void dispose() {
-    folioController.dispose();
-    nombreController.dispose();
-    cantidadController.dispose();
-    marcaController.dispose();
-    medicionController.dispose();
-    proveedorController.dispose();
-    super.dispose();
+    folioController.clear();
+    nombreController.clear();
+    cantidadController.clear();
+    marcaController.clear();
+    medicionController.clear();
+    proveedorController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Alta de Producto', style: TextStyle(color: Colors.white),),
-        backgroundColor: const Color.fromARGB(255, 41, 39, 39),
-          elevation: 0,
-          iconTheme: const IconThemeData(
-            color: Colors.white,
+        title: const Text('Altas', style: TextStyle(color: Color.fromARGB(255, 255, 253, 253))),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+      toolbarHeight: 80,
+      flexibleSpace: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 15, 58, 47),
+              Color.fromARGB(255, 52, 174, 190),
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
           ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_sharp),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+        ),
       ),
-       body: Padding(
+      ),
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
@@ -164,7 +172,6 @@ class _AltasState extends State<Altas> {
                 foregroundColor: Colors.white, 
                 backgroundColor: Colors.black,
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                
                 ),
                 child: const Text('Agregar'),
               ),

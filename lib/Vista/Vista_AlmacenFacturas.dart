@@ -6,95 +6,140 @@ class Facturas extends StatelessWidget {
   
  @override
 Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text(
-        'Facturas',
-        style: TextStyle(color: Colors.white),
+  return Theme(
+    data: Theme.of(context).copyWith(
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Color.fromARGB(255, 41, 39, 39), // Color negro
+        elevation: 0, // Sin sombra debajo del AppBar
       ),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
       iconTheme: const IconThemeData(
-        color: Colors.white,
-      ),
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new_sharp),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      centerTitle: true,
-      toolbarHeight: 80,
-      flexibleSpace: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 15, 58, 47),
-              Color.fromARGB(255, 52, 174, 190),
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-        ),
+        color: Color.fromARGB(255, 243, 238, 238),
       ),
     ),
-    body: Column(
+    child: Stack(
       children: [
-        const Expanded(
-          child: SingleChildScrollView(
-            // child: DataTable(
-            //   columns: const [
-            //     DataColumn(label: Text('Folio')),
-            //     DataColumn(label: Text('Nombre')),
-            //     DataColumn(label: Text('Cantidad')),
-            //     DataColumn(label: Text('Marca')),
-            //     DataColumn(label: Text('Medición')),
-            //     DataColumn(label: Text('Proveedor')),
-            //   ],
-            //   rows: objetosAlmacen.map((objeto) {
-            //     return DataRow(cells: [
-            //       DataCell(Text(objeto.folio)),
-            //       DataCell(Text(objeto.nombre)),
-            //       DataCell(Text(objeto.cantidad.toString())),
-            //       DataCell(Text(objeto.marca)),
-            //       DataCell(Text(objeto.medicion)),
-            //       DataCell(Text(objeto.proveedor)),
-            //     ]);
-            //   }).toList(),
-            // ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Ajusta el margen
-          height: MediaQuery.of(context).size.height * 0.08, // Ajusta la altura
-         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 41, 39, 39),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.upload_file_outlined, size: 40),
-                color: Colors.white,
-                onPressed: () {
-                },
+        Scaffold(
+          backgroundColor: const Color.fromARGB(255, 243, 238, 238),
+          body: Column(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.15,
+                decoration: const BoxDecoration(color: Color.fromARGB(255, 41, 39, 39)),
+                child: AppBar(
+                  title: const Text('Reportes', style: TextStyle(color: Color.fromARGB(255, 255, 253, 253))),
+                  leading: IconButton(
+                    icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.add_outlined, size: 30),
+                      color: Colors.white,
+                      onPressed: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => const AltaCamionView()),
+                        // );
+                      },
+                    ),
+                  ],
+                  centerTitle: true,
+                  toolbarHeight: 80,
+                  flexibleSpace: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 15, 58, 47),
+                          Color.fromARGB(255, 52, 174, 190),
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              const SizedBox(width: 20),
-              IconButton(
-                icon: const Icon(Icons.verified, size: 40),
-                color: Colors.white,
-                onPressed: () {
-                },
-              ),
-              const SizedBox(width: 20),
-              IconButton(
-                icon: const Icon(Icons.edit_note_outlined, size: 40),
-                color: Colors.white,
-                onPressed: () {
-                },
+              const SizedBox(height: 15),
+              Container(
+                width: MediaQuery.of(context).size.width, // Ancho de esquina a esquina
+                margin: const EdgeInsets.only(top: 40),
+                height: 60, // Altura del rectángulo
+                color: Colors.white, // Color del rectángulo
               ),
             ],
+          ),
+          bottomNavigationBar: BottomAppBar(
+            padding: const EdgeInsets.only(
+              left: 50.0,
+              right: 50,
+              top: 5,
+              bottom: 20,
+            ),
+            color: Colors.transparent,
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.1,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 41, 39, 39),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.upload_file_outlined, size: 40),
+                    color: Colors.white,
+                    onPressed: () {},
+                  ),
+                  const SizedBox(width: 20),
+                  IconButton(
+                    icon: const Icon(Icons.verified, size: 40),
+                    color: Colors.white,
+                    onPressed: () {},
+                  ),
+                  const SizedBox(width: 20),
+                  IconButton(
+                    icon: const Icon(Icons.edit_note_outlined, size: 40),
+                    color: Colors.white,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.only(top: 40.0),
+            child: Text(
+              'Facturas  Logo aquí',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.none,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 90, // Ajusta la posición aquí
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 25.0,
+              right: 25.0,
+            ),
+            child: Container(
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
           ),
         ),
       ],

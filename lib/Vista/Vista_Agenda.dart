@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_Agenda.dart';
-import 'package:flutter_application_almacee/Modelo/Agenda.dart';
+import 'package:flutter_application_almacee/Modelo/AgendaReturn.dart';
 import 'package:flutter_application_almacee/Vista/Vista_DetalleEntradaCamion.dart';
 import 'package:flutter_application_almacee/Vista/Vista_DetallesSalidaCamiones.dart';
 class VistaAgenda extends StatefulWidget {
@@ -13,9 +13,9 @@ class VistaAgenda extends StatefulWidget {
 
 class _VistaAgendaState extends State<VistaAgenda> {
   ControladorAgenda controlador = ControladorAgenda();
-  List<Agenda> entradasProgramadas = [];
+  List<Agenda2> entradasProgramadas = [];
 
-   List<Agenda> salidasProgramadas = [];
+   List<Agenda2> salidasProgramadas = [];
 
 @override
   void initState() {
@@ -24,8 +24,8 @@ class _VistaAgendaState extends State<VistaAgenda> {
 }
 
 Future<void> _cargarAgenda() async {
-  List<Agenda> listaAgendaEntrada = await controlador.obtenerAgendasEntrada();
-  List<Agenda> listaAgendaSalida = await controlador.obtenerAgendasSalida();
+  List<Agenda2> listaAgendaEntrada = await controlador.obtenerAgendasEntrada();
+  List<Agenda2> listaAgendaSalida = await controlador.obtenerAgendasSalida();
   setState(() {
     salidasProgramadas = listaAgendaSalida;
     entradasProgramadas = listaAgendaEntrada;
@@ -52,7 +52,7 @@ Future<void> _cargarAgenda() async {
                   children: [
                     ListTile(
                       title: Text('Camión: ${entradasProgramadas[index].matriculaCamion}'),
-                      subtitle: Text('Hora de Entrada: ${entradasProgramadas[index].hora}'),
+                      subtitle: Text('Hora de Entrada: ${entradasProgramadas[index].hora} del dia: ${entradasProgramadas[index].fecha}'),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -79,7 +79,7 @@ Future<void> _cargarAgenda() async {
                   children: [
                     ListTile(
                       title: Text('Camión: ${salidasProgramadas[index].matriculaCamion}'),
-                      subtitle: Text('Hora de Salida: ${salidasProgramadas[index].hora}'),
+                      subtitle: Text('Hora de Salida: ${salidasProgramadas[index].hora} del dia: ${salidasProgramadas[index].fecha}'),
                       onTap: () {
                         Navigator.push(
                           context,

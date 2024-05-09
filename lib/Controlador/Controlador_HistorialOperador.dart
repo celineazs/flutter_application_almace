@@ -48,4 +48,6 @@ Future<List<HistorialOperador>> getHistorialOperador(String idChofer) async {
   }
   return historialOperador;
 }
+
+
 }

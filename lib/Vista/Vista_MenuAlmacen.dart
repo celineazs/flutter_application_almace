@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Vista/Vista_AltaFacturas.dart';
-import 'package:flutter_application_almacee/Vista/Vista_ConsultaAlmacen.dart.dart';
+import 'package:flutter_application_almacee/Vista/Vista_ConsultaAlmacen.dart';
 import 'Vista_Almacen.dart'; 
 import 'Vista_AlmacenReportes.dart';
 
@@ -154,7 +154,7 @@ Widget build(BuildContext context) {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const VistaConsultas()),
+                              MaterialPageRoute(builder: (context) => VistaConsultas()),
                             );
                           },
                           style: ElevatedButton.styleFrom(

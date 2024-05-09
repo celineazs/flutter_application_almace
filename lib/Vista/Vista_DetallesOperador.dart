@@ -21,52 +21,55 @@ class _DetalleOperadorState extends State<DetalleOperador> {
      @override
    void initState() {
   super.initState();
-  cargarRegistrosInfraccionesOperador();
   cargarHistorialOperador();
+ 
 }
-Future<void> cargarHistorialOperador() async {
+Future<List<dynamic>> cargarHistorialOperador() async {
   List<HistorialOperador> listaHistorialOperador = await controladorHistorial.getHistorialOperador(widget.operador.IdChofer);
-  setState(() {
-    historialOperador = listaHistorialOperador;
-  });
-}
-
-Future<void> cargarRegistrosInfraccionesOperador() async {
   List<InfraccionOperador> listaInfracciones = await controladorHistorial.getRegistroInFraccionesOperador(widget.operador.IdChofer);
-  setState(() {
-    registroInfracciones = listaInfracciones;
-  });
+  return [listaHistorialOperador, listaInfracciones];
 }
 
 
-  @override
-    Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Detalles de ${widget.operador.nombre}',
-          style: const TextStyle(color: Colors.white, fontSize: 30),
-        ),
-        backgroundColor: Colors.transparent,
+   @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(
+        'Detalles de ${widget.operador.nombre}',
+        style: const TextStyle(color: Colors.white, fontSize: 30),
       ),
-      body: ListView(
+      backgroundColor: Colors.transparent,
+    ),
+    body: ListView(
+      children: [
+        ListTile(
+          title: Text('ID del Operador: ${widget.operador.IdChofer}'),
+        ),
+        ListTile(
+          title: Text('Nombre del Chofer: ${widget.operador.nombre}'),
+        ),
+        ListTile(
+          title: Text('Licencia de Conducir: ${widget.operador.licenciaConducir}'),
+        ),
+        ListTile(
+          title: Text('Contacto: ${widget.operador.contacto}'),
+        ),
+        ListTile(
+          title: Text('Estado de Salud: ${widget.operador.estadoSalud}'),
+        ),
+        FutureBuilder<List<dynamic>>(
+  future: cargarHistorialOperador(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const CircularProgressIndicator();
+    } else if (snapshot.hasError) {
+      return Text('Error: ${snapshot.error}');
+    } else {
+      List<HistorialOperador> historialOperador = snapshot.data![0];
+      List<InfraccionOperador> registroInfracciones = snapshot.data![1];
+      return Column(
         children: [
-          ListTile(
-            title: Text('ID del Operador: ${widget.operador.IdChofer}'),
-          ),
-          ListTile(
-            title: Text('Nombre del Chofer: ${widget.operador.nombre}'),
-          ),
-          ListTile(
-            title: Text('Licencia de Conducir: ${widget.operador.licenciaConducir}'),
-          ),
-          ListTile(
-            title: Text('Contacto: ${widget.operador.contacto}'),
-          ),
-          ListTile(
-            title: Text('Estado de Salud: ${widget.operador.estado}'),
-          ),
-
           const ListTile(
             title: Text('Historial de Operador:'),
           ),
@@ -79,7 +82,7 @@ Future<void> cargarRegistrosInfraccionesOperador() async {
               );
             },
           ),
-                    const ListTile(
+          const ListTile(
             title: Text('Registro de Infracciones:'),
           ),
           ListView.builder(
@@ -92,7 +95,13 @@ Future<void> cargarRegistrosInfraccionesOperador() async {
             },
           ),
         ],
-      ),
-    );
-  }
+      );
+    }
+  },
+),
+      ],
+    ),
+  );
 }
+}
+

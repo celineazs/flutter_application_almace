@@ -160,7 +160,7 @@ Widget build(BuildContext context) {
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
-                              builder: (context) =>  const VistaAltaAgenda(),
+                              builder: (context) =>  VistaAltaAgenda(),
                             ),
                           );
 
@@ -265,4 +265,5 @@ Widget build(BuildContext context) {
     ),
   );
 }
+
 }

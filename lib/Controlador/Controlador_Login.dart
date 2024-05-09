@@ -38,4 +38,6 @@ Future<int> loginAndGetTipoUsuario(String email, String password) async {
   }
   return 0; // No se encontró el usuario
 }
+
+
 }

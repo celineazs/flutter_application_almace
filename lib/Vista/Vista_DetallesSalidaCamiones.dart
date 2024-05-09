@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_almacee/Modelo/Agenda.dart';
+import 'package:flutter_application_almacee/Modelo/AgendaReturn.dart';
 import 'package:flutter_application_almacee/Vista/ExitChecklistScreen.dart';
 
 class DetalleSalidaCamion extends StatelessWidget {
-  final Agenda salida;
+  final Agenda2 salida;
 
-  DetalleSalidaCamion({required this.salida});
+  const DetalleSalidaCamion({super.key, required this.salida});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalle de Salida'),
+        title: const Text('Detalle de Salida'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -22,7 +22,6 @@ class DetalleSalidaCamion extends StatelessWidget {
             Text('Camión: ${salida.matriculaCamion}'),
             Text('Nombre del Conductor: ${salida.nombreOperador}'),
             Text( 'Fecha: ${salida.fecha}'),
-            Text('Hora de Entrada: ${salida.hora}'),
             Text('Tipo de Carga: ${salida.tipodeCarga}'),
             Text('Peso de Carga: ${salida.pesoCarga}'),
             Text('Destino de Carga: ${salida.destinoCarga}'),
@@ -34,12 +33,12 @@ class DetalleSalidaCamion extends StatelessWidget {
            Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ExitChecklistScreen(),
+                            builder: (context) => ExitChecklistScreen(salida: salida),
                           ),
                         );
         },
-        child: Icon(Icons.check),
         backgroundColor: Colors.green,
+        child: const Icon(Icons.check),
       ),
     );
   }

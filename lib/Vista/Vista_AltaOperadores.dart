@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_Operador.dart';
+import 'package:flutter_application_almacee/Modelo/Operador.dart';
 
 class VistaAltasOperadores extends StatefulWidget {
   const VistaAltasOperadores({super.key});
@@ -21,7 +22,7 @@ class _VistaAltasOperadoresState extends State<VistaAltasOperadores> {
 Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Alta Operador'),
+        title: const Text('Vista de Chofer'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -124,15 +125,47 @@ Widget build(BuildContext context) {
                   border: OutlineInputBorder(),
                 ),
               ),
+              
               const SizedBox(height: 20),
               // Botón "ACEPTAR"
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Acción que quieres realizar cuando se presione el botón
-                  },
+                    onPressed: () async {
+                      
+                      
+
+                      // Verificar si se cumple la condición
+                      if (await controlador.registrarOperador( Operador(
+                      IdChofer: _idChoferController.text,
+                      nombre: _nombreController.text,
+                      licenciaConducir: _licenciaController.text,
+                      contacto: _contactoController.text,
+                      estadoSalud: _estadoSaludController.text,
+                      ))) {
+                      // ignore: use_build_context_synchronously
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('EXITO!'),
+                          content: const Text('El operador ha sido registrado correctamente!'),
+                          actions: [
+                          TextButton(
+                            child: const Text('Aceptar'),
+                            onPressed: () {
+                            clear();
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            },
+                          ),
+                          ],
+                        );
+                        },
+                      );
+                      }
+                    },
                   style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, 
                 backgroundColor: Colors.black,
@@ -149,12 +182,11 @@ Widget build(BuildContext context) {
   }
 
   @override
-  void dispose() {
-    _idChoferController.dispose();
-    _nombreController.dispose();
-    _licenciaController.dispose();
-    _contactoController.dispose();
-    _estadoSaludController.dispose();
-    super.dispose();
+  void clear() {
+    _idChoferController.clear();
+    _nombreController.clear();
+    _licenciaController.clear();
+    _contactoController.clear();
+    _estadoSaludController.clear();
   }
 }

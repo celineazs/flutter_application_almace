@@ -15,6 +15,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+  
 }
 
 
@@ -65,8 +66,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 79, 212, 184),
-              Color.fromARGB(255, 70, 209, 191),
+                  Color.fromARGB(255, 15, 58, 47),
+                  Color.fromARGB(255, 70, 209, 191),
             ],
           ),
         ),

@@ -38,7 +38,7 @@ class ControladorOperador{
         nombre: doc['nombre'],
         licenciaConducir: doc['licenciaConducir'],
         contacto: doc['contacto'],
-        estado: doc['estado'],
+        estadoSalud: doc['estadoSalud'],
       ));
     }
     return operadores;

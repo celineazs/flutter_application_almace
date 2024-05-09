@@ -23,7 +23,7 @@ class ControladorAlmacen {
   try {
     DocumentSnapshot doc = await _almacenCollection.doc(producto.folio).get();
     if (doc.exists) {
-      int cantidadExistente = (doc.data() as Map<String, dynamic>)['cantidad'] ?? 0;
+      int cantidadExistente = (doc.data() as Map<String, dynamic>)?['cantidad'] ?? 0;
       await _almacenCollection.doc(producto.folio).update({
         'cantidad': cantidadExistente + producto.cantidad,
       });
@@ -65,7 +65,7 @@ Future<bool> eliminarProducto(String folio, int cantidad, String usuario) async 
   try {
     DocumentSnapshot doc = await _almacenCollection.doc(folio).get();
     if (doc.exists) {
-      int cantidadExistente = (doc.data() as Map<String, dynamic>)['cantidad'] ?? 0;
+      int cantidadExistente = (doc.data() as Map<String, dynamic>)?['cantidad'] ?? 0;
       if (cantidadExistente <= cantidad) {
         await _almacenCollection.doc(folio).delete();
       } else {
@@ -77,7 +77,7 @@ Future<bool> eliminarProducto(String folio, int cantidad, String usuario) async 
       String formattedDate = DateFormat('dd/MM/yy HH:mm:ss').format(DateTime.now());
       ReporteAlmacen registro = ReporteAlmacen(
         tipo: 'Salida',
-        nomproducto: (doc.data() as Map<String, dynamic>)['nombre'] ?? '',
+        nomproducto: (doc.data() as Map<String, dynamic>)?['nombre'] ?? '',
         Cantidad: cantidad.toString(),
         Fecha: formattedDate,
         Usuario: usuario, // Aquí debes colocar el nombre del usuario actual

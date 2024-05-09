@@ -4,6 +4,7 @@ import 'package:flutter_application_almacee/Modelo/Camion.dart';
 import 'package:flutter_application_almacee/Vista/HistoryScreen.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Agenda.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Camion.dart';
+import 'package:flutter_application_almacee/Vista/Vista_ObservacionesVigilante.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Operador.dart';
 class MenuVigilante extends StatefulWidget {
   const MenuVigilante({Key? key}) : super(key: key);
@@ -223,7 +224,7 @@ Widget build(BuildContext context) {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const VistaOperador()),
+                        MaterialPageRoute(builder: (context) => VistaOperador()),
                       );
                     },
                   ),
@@ -234,7 +235,7 @@ Widget build(BuildContext context) {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const VistaAgenda()),
+                        MaterialPageRoute(builder: (context) => VistaAgenda()),
                       );
                     },
                   ),
@@ -246,6 +247,17 @@ Widget build(BuildContext context) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HistoryScreen()),
+                      );
+                    },
+                  ),
+                   const SizedBox(width: 20),
+                  IconButton(
+                    icon: const Icon(Icons.note, size: 40),
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => vistaObservaciones()),
                       );
                     },
                   ),

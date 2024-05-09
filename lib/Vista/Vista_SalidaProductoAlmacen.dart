@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_Almacen.dart';
 
 class Bajas extends StatefulWidget {
@@ -70,7 +71,7 @@ class _BajasState extends State<Bajas> {
                 controller: usuarioController,
                 decoration: const InputDecoration(
                   labelText: 'Usuario Despachado',
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
