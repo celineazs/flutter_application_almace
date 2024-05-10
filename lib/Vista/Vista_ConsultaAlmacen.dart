@@ -92,7 +92,7 @@ class _VistaConsultasState extends State<VistaConsultas> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.all(40.0),
                 child: Column(
                   children: [
                     Row(
@@ -124,12 +124,12 @@ class _VistaConsultasState extends State<VistaConsultas> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
-                            color: const Color.fromARGB(255, 129, 26, 26).withOpacity(0.10),
-                            spreadRadius: 5,
+                            color: Color.fromARGB(255, 219, 216, 216),
+                            spreadRadius: 3,
                             blurRadius: 5,
-                            offset: const Offset(0, 3), // changes position of shadow
+                            offset: Offset(0, 3), // changes position of shadow
                           ),
                         ],
                       ),

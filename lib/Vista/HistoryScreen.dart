@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_ReporteVigilante.dart';
 import 'package:flutter_application_almacee/Modelo/ReporteVigilante.dart';
+import 'package:flutter_application_almacee/Vista/Vista_ObservacionesVigilante.dart';
 
 
 class HistoryScreen extends StatefulWidget {
@@ -30,7 +31,38 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Historial'),
+        title: const Text('Historial', style: TextStyle(color: Color.fromARGB(255, 255, 253, 253))),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),actions: [
+          IconButton(
+            icon: const Icon(Icons.note, size: 30),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const vistaObservaciones()),
+              );
+            },
+          ),
+        ],
+        centerTitle: true,
+      toolbarHeight: 80,
+      flexibleSpace: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 15, 58, 47),
+              Color.fromARGB(255, 52, 174, 190),
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+        ),
+      ),
       ),
       body: FutureBuilder<List<ReporteVigilante>>(
         future: historial,
@@ -50,7 +82,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
               itemBuilder: (context, index) {
                 final entry = historial[index];
                 Color tileColor = Colors.white; // Por defecto
-
                 // colores según el tipo de entrada
                 if (entry.Estado == 'Aceptado') {
                   tileColor = Colors.green;

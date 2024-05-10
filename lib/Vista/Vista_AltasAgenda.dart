@@ -97,21 +97,59 @@ class _VistaAltaAgendaState extends State<VistaAltaAgenda> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              TextField(
-                controller: _folioController,
-                decoration: const InputDecoration(labelText: 'Folio'),
+              const Text(
+                'Folio:',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              TextField(
-                controller: _matriculaCamionController,
-                decoration: const InputDecoration(labelText: 'Matrícula del Camión'),
+              const SizedBox(height: 10),
+              const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Ingrese folio',
+                  border: OutlineInputBorder(),
+                ),
               ),
-              TextField(
-                controller: _nombreOperadorController,
-                decoration: const InputDecoration(labelText: 'Nombre del Operador'),
+              const SizedBox(height: 20),
+              const Text(
+                'Matrícula del Camión:',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              const SizedBox(height: 10),
+              const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Ingrese la matrícula del camión',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+               const Text(
+                'Nombre del Operador:',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Ingrese el nombre del operador',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
               Text('Fecha y Hora Seleccionada: $_fechaHoraSeleccionada'),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () => _seleccionarFechaHora(context),
+                style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.black,
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+          ),
                 child: const Text('Seleccionar Fecha y Hora'),
               ),
               DropdownButton<String>(
@@ -128,23 +166,41 @@ class _VistaAltaAgendaState extends State<VistaAltaAgenda> {
                   );
                 }).toList(),
               ),
+              const SizedBox(height: 10.0),
               TextField(
                 controller: _tipoDeCargaController,
-                decoration: const InputDecoration(labelText: 'Tipo de Carga'),
+                decoration: const InputDecoration(
+                  hintText: 'Tipo de Carga',
+                  border: OutlineInputBorder(),
+                ),
               ),
+              const SizedBox(height: 10.0),
               TextField(
                 controller: _pesoCargaController,
-                decoration: const InputDecoration(labelText: 'Peso de la Carga'),
+                decoration: const InputDecoration(
+                  hintText: 'Peso de Carga',
+                  border: OutlineInputBorder(),
+                ),
               ),
+              const SizedBox(height: 10.0),
               TextField(
                 controller: _destinoCargaController,
-                decoration: const InputDecoration(labelText: 'Destino de la Carga'),
+                decoration: const InputDecoration(
+                  hintText: 'Destino de Carga',
+                  border: OutlineInputBorder(),
+                ),
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 10.0),
               ElevatedButton(
-                onPressed: _agregarAgenda,
-                child: const Text('Agregar Agenda'),
-              ),
+  onPressed: _agregarAgenda,
+  style: ElevatedButton.styleFrom(
+    foregroundColor: Colors.white, 
+    backgroundColor: Colors.black,
+    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+  ),
+  child: const Text('Agregar Agenda'),
+),
+
             ],
           ),
         ),

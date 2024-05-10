@@ -59,33 +59,43 @@ Future<void> cargarReportes() async {
           return GestureDetector(
             onTap: () {
               showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Especificaciones'),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Tipo: ${objeto.tipo}'),
-                        Text('Nom. Producto: ${objeto.nomproducto}'),
-                        Text('Cantidad: ${objeto.Cantidad}'),
-                        Text('Fecha: ${objeto.Fecha}'),
-                        Text('Usuario: ${objeto.Usuario}'),
-                        Text('Encargado: ${objeto.Encargado}'),
-                      ],
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Cerrar'),
-                      ),
-                    ],
-                  );
-                },
-              );
+  context: context,
+  builder: (BuildContext context) {
+    return Theme(
+      data: ThemeData(
+        // Cambia el color de fondo del diálogo aquí
+        colorScheme: Theme.of(context).colorScheme.copyWith(
+            background: Colors.grey,
+        ),),
+        child: Container(
+      child: AlertDialog(
+        title: const Text('Especificaciones', style: TextStyle(color: Colors.black)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Tipo: ${objeto.tipo}', style: const TextStyle(color: Colors.black, fontSize: 20)),
+            Text('Nom. Producto: ${objeto.nomproducto}', style: const TextStyle(color: Colors.black, fontSize: 20)),
+            Text('Cantidad: ${objeto.Cantidad}', style: const TextStyle(color: Colors.black, fontSize: 20)),
+            Text('Fecha: ${objeto.Fecha}', style: const TextStyle(color: Colors.black, fontSize: 20)),
+            Text('Usuario: ${objeto.Usuario}', style: const TextStyle(color: Colors.black, fontSize: 20)),
+            Text('Encargado: ${objeto.Encargado}', style: const TextStyle(color: Colors.black, fontSize: 20)),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cerrar', style: TextStyle(color: Colors.black, fontSize: 20)),
+          ),
+        ],
+      ),
+    ),
+    );
+  },
+);
+
             },
             child: Container(
               width: 150.0,

@@ -38,8 +38,7 @@ class _VistaCamionState extends State<VistaCamion> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text('Camiones', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
+        title: const Text('Camiones', style: TextStyle(color: Color.fromARGB(255, 255, 253, 253))),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
           onPressed: () {
@@ -47,17 +46,30 @@ class _VistaCamionState extends State<VistaCamion> {
           },
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.add_outlined, size: 30),
-            color: Colors.white,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AltaCamionView()),
-              );
-            },
+        IconButton(
+          icon: const Icon(Icons.add, color: Colors.white, size: 30),
+          onPressed: () {
+           Navigator.push(
+       context,
+       MaterialPageRoute(builder: (context) => const AltaCamionView()) ) ;
+       
+          },
+        ),
+      ],
+        centerTitle: true,
+      toolbarHeight: 80,
+      flexibleSpace: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 15, 58, 47),
+              Color.fromARGB(255, 52, 174, 190),
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
           ),
-        ],
+        ),
+      ),
       ),
       body: FutureBuilder<void>(
         future: _futureCargaCamiones,

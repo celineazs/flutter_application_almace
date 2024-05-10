@@ -55,33 +55,36 @@ Future<void> cargarProductos() async {
         ),
       ),
       ),
-      body: SingleChildScrollView(
-        child: DataTable(
-          columns: const [
-            DataColumn(label: Text('Folio')),
-            DataColumn(label: Text('Nombre')),
-            DataColumn(label: Text('Cantidad')),
-            DataColumn(label: Text('Marca')),
-            DataColumn(label: Text('Medición')),
-            DataColumn(label: Text('Proveedor')),
-          ],
-          rows: objetosAlmacen.map((objeto) {
-            return DataRow(cells: [
-              DataCell(Text(objeto.folio)),
-              DataCell(Text(objeto.nombre)),
-              DataCell(Text(objeto.cantidad.toString())),
-              DataCell(Text(objeto.marca)),
-              DataCell(Text(objeto.medicion)),
-              DataCell(Text(objeto.proveedor)),
-            ]);
-          }).toList(),
+      body: Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            child: DataTable(
+              columns: const [
+                DataColumn(label: Text('Folio')),
+                DataColumn(label: Text('Nombre')),
+                DataColumn(label: Text('Cantidad')),
+                DataColumn(label: Text('Marca')),
+                DataColumn(label: Text('Medición')),
+                DataColumn(label: Text('Proveedor')),
+              ],
+              rows: objetosAlmacen.map((objeto) {
+                return DataRow(cells: [
+                  DataCell(Text(objeto.folio)),
+                  DataCell(Text(objeto.nombre)),
+                  DataCell(Text(objeto.cantidad.toString())),
+                  DataCell(Text(objeto.marca)),
+                  DataCell(Text(objeto.medicion)),
+                  DataCell(Text(objeto.proveedor)),
+                ]);
+              }).toList(),
+            ),
+          ),
         ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.transparent,
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.1,
-          decoration: BoxDecoration(
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Ajusta el margen
+          height: MediaQuery.of(context).size.height * 0.08, // Ajusta la altura
+         decoration: BoxDecoration(
             color: const Color.fromARGB(255, 41, 39, 39),
             borderRadius: BorderRadius.circular(30),
           ),
@@ -123,7 +126,8 @@ Future<void> cargarProductos() async {
             ],
           ),
         ),
-      ),
-    );
-  }
+      ],
+    ),
+  );
+}
 }

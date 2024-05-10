@@ -35,7 +35,7 @@ Widget build(BuildContext context) {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    bottom: 140,
+                    bottom: 160,
                     right: 0,
                   ),
                   child: Text(
@@ -117,7 +117,7 @@ Widget build(BuildContext context) {
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
-                              builder: (context) =>  MenuVigilante(),
+                              builder: (context) =>  const MenuVigilante(),
                             ),
                           );
                         },
@@ -160,7 +160,7 @@ Widget build(BuildContext context) {
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
-                              builder: (context) =>  VistaAltaAgenda(),
+                              builder: (context) =>  const VistaAltaAgenda(),
                             ),
                           );
 
@@ -204,7 +204,7 @@ Widget build(BuildContext context) {
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
-                              builder: (context) =>  VistaGestionUsuario(),
+                              builder: (context) =>  const VistaGestionUsuario(),
                             ),
                           );
                         },
@@ -245,7 +245,7 @@ Widget build(BuildContext context) {
           ),
         ),
         Positioned(
-          top: MediaQuery.of(context).padding.top + 135,
+          top: MediaQuery.of(context).padding.top + 155,
           right: 30,
           child: Container(
             decoration: BoxDecoration(

@@ -31,7 +31,6 @@ Future<void> _cargarUsuarios() async {
   return Theme(
     data: Theme.of(context).copyWith(
       appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       iconTheme: const IconThemeData(
@@ -43,7 +42,7 @@ Future<void> _cargarUsuarios() async {
       body: Column(
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * 0.03,
+            height: MediaQuery.of(context).size.height * 0.0,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [

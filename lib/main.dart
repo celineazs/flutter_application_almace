@@ -200,64 +200,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              if (await controlador.loginAndGetTipoUsuario(
-                                      _emailController.text,
-                                      _passwordController.text) ==
-                                  1) {
-                                Navigator.of(context, rootNavigator: true).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const Inicio(),
-                                  ),
-                                );
-                              } else if (await controlador.loginAndGetTipoUsuario(
-                                      _emailController.text,
-                                      _passwordController.text) ==
-                                  2) {
-                                Navigator.of(context, rootNavigator: true).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const MenuVigilante(),
-                                  ),
-                                );
-                              } else if (await controlador.loginAndGetTipoUsuario(
-                                      _emailController.text,
-                                      _passwordController.text) ==
-                                  3) {
-                                Navigator.of(context, rootNavigator: true).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const VistaAdmin(),
-                                  ),
-                                );
-                              }
-                              dispose();
-                            },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.transparent),
-                              elevation: MaterialStateProperty.all(0),
-                            ),
-                            child: const Text(
-                              'INGRESAR',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 70, 209, 191),
-                                  fontSize: 20),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
                     Form(
                       key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 40),
+                          const SizedBox(height: 0),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             width: MediaQuery.of(context).size.width * 0.7,
@@ -374,9 +322,65 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 25.0),
+                          const SizedBox(height: 60.0),
                         ],
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (await controlador.loginAndGetTipoUsuario(
+                                      _emailController.text,
+                                      _passwordController.text) ==
+                                  1) {
+                                Navigator.of(context, rootNavigator: true).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const Inicio(),
+                                  ),
+                                );
+                              } else if (await controlador.loginAndGetTipoUsuario(
+                                      _emailController.text,
+                                      _passwordController.text) ==
+                                  2) {
+                                Navigator.of(context, rootNavigator: true).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const MenuVigilante(),
+                                  ),
+                                );
+                              } else if (await controlador.loginAndGetTipoUsuario(
+                                      _emailController.text,
+                                      _passwordController.text) ==
+                                  3) {
+                                Navigator.of(context, rootNavigator: true).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const VistaAdmin(),
+                                  ),
+                                );
+                              }
+                              dispose();
+                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(const Color.fromARGB(255, 70, 209, 191)),
+                              elevation: MaterialStateProperty.all(0),
+                              
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(10.0), 
+                              child: Text(
+                                'INGRESAR',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20),
+                            ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
