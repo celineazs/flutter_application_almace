@@ -6,7 +6,8 @@ import 'package:flutter_application_almacee/Modelo/ReporteVigilante.dart';
 
 class ExitChecklistScreen extends StatefulWidget {
   final Agenda2 salida;
-  const ExitChecklistScreen({super.key, required this.salida});
+  final String usuario;
+  const ExitChecklistScreen({super.key, required this.salida, required this.usuario});
 
   
   @override
@@ -156,12 +157,12 @@ class _ExitChecklistScreenState extends State<ExitChecklistScreen> {
                         fecha: widget.salida.fecha,
                         hora: widget.salida.hora,
                         tipo: 'Salida',
-                        VigilanteAsignado: 'Vigilante asignado',
+                        VigilanteAsignado: widget.usuario,
                         Estado: 'Aceptado',
                         Motivo: 'Cumplimiento de checklist, todos los elementos revisados,revise el panel de observaciones para mas detalles',
                       ),
                     )){
-                    await controlador.eliminarAgenda(widget.salida.folio);
+                    await controlador.eliminarAgenda(widget.salida.folio,widget.salida.nombreOperador,true,'Salida');
                     await controlador.agregarObservacionVigilante(
                       ObservacionVigilante(
                         folio: widget.salida.folio,
@@ -179,6 +180,10 @@ class _ExitChecklistScreenState extends State<ExitChecklistScreen> {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                 Navigator.of(context).pop();
+                                 Navigator.of(context).pop();
+                                            
                               },
                               child: const Text('Aceptar'),
                             ),
@@ -278,12 +283,12 @@ class _ExitChecklistScreenState extends State<ExitChecklistScreen> {
                         fecha: widget.salida.fecha,
                         hora: widget.salida.hora,
                         tipo: 'Salida',
-                        VigilanteAsignado: 'Vigilante asignado',
+                        VigilanteAsignado: widget.usuario,
                         Estado: 'Negado',
                         Motivo: 'Negación de Salida, no se completó el checklist\n$checklistPendiente',
                       ),
                     )){
-                  await controlador.eliminarAgenda(widget.salida.folio);
+                  await controlador.eliminarAgenda(widget.salida.folio,widget.salida.nombreOperador,false,'Salida');
                     await controlador.agregarObservacionVigilante(
                       ObservacionVigilante(
                         folio: widget.salida.folio,
@@ -301,6 +306,9 @@ class _ExitChecklistScreenState extends State<ExitChecklistScreen> {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context).pop();
                               },
                               child: const Text('cerrar'),
                             ),

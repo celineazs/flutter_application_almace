@@ -1,10 +1,8 @@
 import 'package:flutter_application_almacee/Controlador/Controlador_camiones.dart';
 import 'package:flutter_application_almacee/Vista/Vista_altasCamiones.dart';
-
 import '../Modelo/Camion.dart';
 import 'Vista_DetallesCamion.dart';
 import 'package:flutter/material.dart';
-
 
 class VistaCamion extends StatefulWidget {
    const VistaCamion({super.key});
@@ -115,5 +113,3 @@ class _VistaCamionState extends State<VistaCamion> {
     );
   }
 }
-
-

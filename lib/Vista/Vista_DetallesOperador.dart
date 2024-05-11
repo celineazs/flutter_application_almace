@@ -25,7 +25,7 @@ class _DetalleOperadorState extends State<DetalleOperador> {
  
 }
 Future<List<dynamic>> cargarHistorialOperador() async {
-  List<HistorialOperador> listaHistorialOperador = await controladorHistorial.getHistorialOperador(widget.operador.IdChofer);
+  List<HistorialOperador> listaHistorialOperador = await controladorHistorial.getHistorialOperador(widget.operador.nombre);
   List<InfraccionOperador> listaInfracciones = await controladorHistorial.getRegistroInFraccionesOperador(widget.operador.IdChofer);
   return [listaHistorialOperador, listaInfracciones];
 }
@@ -35,12 +35,38 @@ Future<List<dynamic>> cargarHistorialOperador() async {
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-      title: Text(
+        title: Text(
         'Detalles de ${widget.operador.nombre}',
         style: const TextStyle(color: Colors.white, fontSize: 30),
       ),
-      backgroundColor: Colors.transparent,
-    ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+        IconButton(
+          icon: const Icon(Icons.create_outlined , color: Colors.white, size: 30),
+          onPressed: () {
+          },
+        ),
+      ],
+        centerTitle: true,
+      toolbarHeight: 80,
+      flexibleSpace: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 15, 58, 47),
+              Color.fromARGB(255, 52, 174, 190),
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+        ),
+      ),
+      ),
     body: ListView(
       children: [
         ListTile(
@@ -52,11 +78,11 @@ Widget build(BuildContext context) {
         ListTile(
           title: Text('Licencia de Conducir: ${widget.operador.licenciaConducir}'),
         ),
-        ListTile(
-          title: Text('Contacto: ${widget.operador.contacto}'),
+         ListTile(
+          title: Text('Estado: ${widget.operador.estadoSalud}'),
         ),
         ListTile(
-          title: Text('Estado de Salud: ${widget.operador.estadoSalud}'),
+          title: Text('Contacto: ${widget.operador.contacto}'),
         ),
         FutureBuilder<List<dynamic>>(
   future: cargarHistorialOperador(),
@@ -104,4 +130,3 @@ Widget build(BuildContext context) {
   );
 }
 }
-

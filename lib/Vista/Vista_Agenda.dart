@@ -3,8 +3,10 @@ import 'package:flutter_application_almacee/Controlador/Controlador_Agenda.dart'
 import 'package:flutter_application_almacee/Modelo/AgendaReturn.dart';
 import 'package:flutter_application_almacee/Vista/Vista_DetalleEntradaCamion.dart';
 import 'package:flutter_application_almacee/Vista/Vista_DetallesSalidaCamiones.dart';
+
 class VistaAgenda extends StatefulWidget {
-  const VistaAgenda({super.key});
+  final String usuario;
+  const VistaAgenda({super.key, required this.usuario});
 
 
   @override
@@ -74,10 +76,12 @@ Future<void> _cargarAgenda() async {
                       title: Text('Camión: ${entradasProgramadas[index].matriculaCamion}'),
                       subtitle: Text('Hora de Entrada: ${entradasProgramadas[index].hora} del dia: ${entradasProgramadas[index].fecha}'),
                       onTap: () {
+                        print('Entrada: ${entradasProgramadas[index].folio}');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetalleEntradaCamion(entrada: entradasProgramadas[index]),
+                            
+                            builder: (context) => DetalleEntradaCamion(entrada: entradasProgramadas[index],usuario: widget.usuario),
                           ),
                         );
                       },
@@ -104,7 +108,7 @@ Future<void> _cargarAgenda() async {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetalleSalidaCamion(salida: salidasProgramadas[index]),
+                            builder: (context) => DetalleSalidaCamion(salida: salidasProgramadas[index],usuario: widget.usuario),
                           ),
                         );
                       },

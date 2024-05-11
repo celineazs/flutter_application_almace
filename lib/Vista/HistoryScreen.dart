@@ -44,7 +44,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const vistaObservaciones()),
+                MaterialPageRoute(builder: (context) =>  vistaObservaciones()),
               );
             },
           ),
@@ -81,8 +81,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               itemCount: historial.length,
               itemBuilder: (context, index) {
                 final entry = historial[index];
-                Color tileColor = Colors.white; // Por defecto
-                // colores según el tipo de entrada
+                Color tileColor = Colors.white; 
                 if (entry.Estado == 'Aceptado') {
                   tileColor = Colors.green;
                 } else if (entry.Estado == 'Negado') {

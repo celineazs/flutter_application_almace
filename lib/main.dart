@@ -15,7 +15,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
-  
 }
 
 
@@ -66,8 +65,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-                  Color.fromARGB(255, 15, 58, 47),
-                  Color.fromARGB(255, 70, 209, 191),
+              Color.fromARGB(255, 15, 58, 47),
+              Color.fromARGB(255, 70, 209, 191),
             ],
           ),
         ),
@@ -200,10 +199,11 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(height: 20),
                     Form(
                       key: _formKey,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(height: 0),
                           Container(
@@ -329,39 +329,42 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
+                        Container(
                           child: ElevatedButton(
                             onPressed: () async {
+                               String usuario = _emailController.text;
                               if (await controlador.loginAndGetTipoUsuario(
                                       _emailController.text,
                                       _passwordController.text) ==
                                   1) {
                                 Navigator.of(context, rootNavigator: true).push(
                                   MaterialPageRoute(
-                                    builder: (context) => const Inicio(),
+                                    builder: (context) => Inicio( usuario: usuario),
                                   ),
                                 );
+                                 dispose();
                               } else if (await controlador.loginAndGetTipoUsuario(
                                       _emailController.text,
                                       _passwordController.text) ==
                                   2) {
                                 Navigator.of(context, rootNavigator: true).push(
                                   MaterialPageRoute(
-                                    builder: (context) => const MenuVigilante(),
+                                    builder: (context) => MenuVigilante(usuario: usuario),
                                   ),
                                 );
+                                 dispose();
                               } else if (await controlador.loginAndGetTipoUsuario(
                                       _emailController.text,
                                       _passwordController.text) ==
                                   3) {
                                 Navigator.of(context, rootNavigator: true).push(
                                   MaterialPageRoute(
-                                    builder: (context) => const VistaAdmin(),
+                                    builder: (context) => VistaAdmin(usuario: usuario),
                                   ),
                                 );
+                                 dispose();
                               }
-                              dispose();
+                             
                             },
                             style: ButtonStyle(
                               backgroundColor:
@@ -376,7 +379,7 @@ class _LoginPageState extends State<LoginPage> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20),
-                            ),
+                              ),
                             ),
                           ),
                         ),

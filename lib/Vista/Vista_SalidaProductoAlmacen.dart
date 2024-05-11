@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_Almacen.dart';
 
+
 class Bajas extends StatefulWidget {
-  const Bajas({Key? key}) : super(key: key);
+  final String usuario;
+  const Bajas({Key? key, required this.usuario}) : super(key: key);
 
   @override
   State<Bajas> createState() => _BajasState();
@@ -101,7 +102,7 @@ class _BajasState extends State<Bajas> {
                   final folio = folioController.text;
                   final cantidad = int.parse(cantidadController.text);
                   final usuario = usuarioController.text;
-                  if(await controlador.eliminarProducto(folio, cantidad, usuario)){
+                  if(await controlador.eliminarProducto(folio, cantidad, usuario, widget.usuario)){
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Producto eliminado correctamente'),

@@ -4,6 +4,7 @@ import 'package:flutter_application_almacee/Vista/Vista_AltaOperadores.dart';
 import 'package:flutter_application_almacee/Vista/Vista_DetallesOperador.dart';
 import '../Modelo/Operador.dart';
 
+
 class VistaOperador extends StatefulWidget {
   
 

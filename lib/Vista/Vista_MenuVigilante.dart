@@ -4,10 +4,11 @@ import 'package:flutter_application_almacee/Modelo/Camion.dart';
 import 'package:flutter_application_almacee/Vista/HistoryScreen.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Agenda.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Camion.dart';
-import 'package:flutter_application_almacee/Vista/Vista_ObservacionesVigilante.dart';
 import 'package:flutter_application_almacee/Vista/Vista_Operador.dart';
 class MenuVigilante extends StatefulWidget {
-  const MenuVigilante({Key? key}) : super(key: key);
+  final  String usuario;
+  const MenuVigilante({Key? key, required this.usuario}) : super(key: key);
+
 
   @override
   State<MenuVigilante> createState() => _MenuVigilanteState();
@@ -224,7 +225,7 @@ Widget build(BuildContext context) {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const VistaOperador()),
+                        MaterialPageRoute(builder: (context) =>  VistaOperador()),
                       );
                     },
                   ),
@@ -235,7 +236,7 @@ Widget build(BuildContext context) {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const VistaAgenda()),
+                        MaterialPageRoute(builder: (context) => VistaAgenda(usuario: widget.usuario)),
                       );
                     },
                   ),

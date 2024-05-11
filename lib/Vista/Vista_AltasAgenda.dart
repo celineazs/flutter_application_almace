@@ -28,6 +28,7 @@ class _VistaAltaAgendaState extends State<VistaAltaAgenda> {
     );
 
     if (fechaSeleccionada != null) {
+      // ignore: use_build_context_synchronously
       final TimeOfDay? horaSeleccionada = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
@@ -59,9 +60,46 @@ class _VistaAltaAgendaState extends State<VistaAltaAgenda> {
         'pesoCarga': _pesoCargaController.text,
         'destinoCarga': _destinoCargaController.text,
       });
-      print('Agenda agregada a Firestore correctamente');
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Éxito'),
+            content: const Text('Agenda agregada correctamente'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
     } catch (e) {
-      print('Error al agregar agenda a Firestore: $e');
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text('Error al agregar agenda : $e'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                  
+                },
+                child: const Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -69,7 +107,7 @@ class _VistaAltaAgendaState extends State<VistaAltaAgenda> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Agregar Agenda', style: TextStyle(color: Color.fromARGB(255, 255, 253, 253))),
+        title: const Text('Altas Agenda', style: TextStyle(color: Color.fromARGB(255, 255, 253, 253))),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
           onPressed: () {
@@ -105,12 +143,13 @@ class _VistaAltaAgendaState extends State<VistaAltaAgenda> {
                 ),
               ),
               const SizedBox(height: 10),
-              const TextField(
-                decoration: InputDecoration(
+               TextField(
+                controller: _folioController,
+                decoration: const InputDecoration(
                   hintText: 'Ingrese folio',
                   border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
               const SizedBox(height: 20),
               const Text(
                 'Matrícula del Camión:',
@@ -120,12 +159,13 @@ class _VistaAltaAgendaState extends State<VistaAltaAgenda> {
                 ),
               ),
               const SizedBox(height: 10),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _matriculaCamionController,
+                decoration: const InputDecoration(
                   hintText: 'Ingrese la matrícula del camión',
                   border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
               const SizedBox(height: 20),
                const Text(
                 'Nombre del Operador:',
@@ -134,24 +174,30 @@ class _VistaAltaAgendaState extends State<VistaAltaAgenda> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const TextField(
-                decoration: InputDecoration(
+              const SizedBox(height: 10),
+              TextField(
+                controller: _nombreOperadorController,
+                decoration: const InputDecoration(
                   hintText: 'Ingrese el nombre del operador',
                   border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
               const SizedBox(height: 20),
               Text('Fecha y Hora Seleccionada: $_fechaHoraSeleccionada'),
               const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () => _seleccionarFechaHora(context),
-                style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.black,
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-          ),
-                child: const Text('Seleccionar Fecha y Hora'),
-              ),
+              Align(
+  alignment: Alignment.centerLeft,
+  child: ElevatedButton(
+    onPressed: () => _seleccionarFechaHora(context),
+    style: ElevatedButton.styleFrom(
+      foregroundColor: Colors.white,
+      backgroundColor: Colors.black,
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+    ),
+    child: const Text('Seleccionar Fecha y Hora'),
+  ),
+),
+
               DropdownButton<String>(
                 value: _tipoSeleccionado,
                 onChanged: (String? newValue) {

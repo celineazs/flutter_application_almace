@@ -6,7 +6,8 @@ import 'package:flutter_application_almacee/Modelo/ReporteVigilante.dart';
 
 class EntryChecklistScreen extends StatefulWidget {
   final Agenda2 entrada;
-  const EntryChecklistScreen({super.key, required this.entrada});
+  final String usuario;
+  const EntryChecklistScreen({super.key, required this.entrada, required this.usuario});
 
   @override
   _EntryChecklistScreenState createState() => _EntryChecklistScreenState();
@@ -165,12 +166,12 @@ class _EntryChecklistScreenState extends State<EntryChecklistScreen> {
                         fecha: widget.entrada.fecha,
                         hora: widget.entrada.hora,
                         tipo: 'Entrada',
-                        VigilanteAsignado: 'Vigilante asignado',
+                        VigilanteAsignado: widget.usuario,
                         Estado: 'Aceptado',
-                        Motivo: 'Cumplimiento de checklist, todos los elementos revisados,revice el panel de observaciones para mas detalles',
+                        Motivo: 'Cumplimiento de checklist, todos los elementos revisados \n revise el panel de observaciones para mas detalles',
                       ),
                     )){
-                    await controlador.eliminarAgenda(widget.entrada.folio);
+                    await controlador.eliminarAgenda(widget.entrada.folio,widget.entrada.nombreOperador,false,'Entrada');
                     await controlador.agregarObservacionVigilante(
                       ObservacionVigilante(
                         folio: widget.entrada.folio,
@@ -188,6 +189,10 @@ class _EntryChecklistScreenState extends State<EntryChecklistScreen> {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                
                               },
                               child: const Text('Aceptar'),
                             ),
@@ -253,8 +258,8 @@ class _EntryChecklistScreenState extends State<EntryChecklistScreen> {
                       documentacionRevisada) {
                     // Acción para guardar la entrada
                   } else {
-                    String checklistPendiente = ' Check list pendiente,revice el panel de \n';
-                    checklistPendiente += 'no se completo el check list de:\n';
+                    String checklistPendiente = 'Check list pendiente,revise el panel de observaciones para mas detalles \n';
+                    checklistPendiente += 'No se completo el check list de:\n';
                     if (!neumaticosRevisados) {
                       checklistPendiente += '-Neumáticos\n';
                     }
@@ -292,12 +297,12 @@ class _EntryChecklistScreenState extends State<EntryChecklistScreen> {
                         fecha: widget.entrada.fecha,
                         hora: widget.entrada.hora,
                         tipo: 'Entrada',
-                        VigilanteAsignado: 'Vigilante asignado',
+                        VigilanteAsignado: widget.usuario,
                         Estado: 'Negado',
-                        Motivo: 'Negación de entrada, no se completó el checklist\n$checklistPendiente',
+                        Motivo: checklistPendiente,
                       ),
                     )){
-                  await controlador.eliminarAgenda(widget.entrada.folio);
+                  await controlador.eliminarAgenda(widget.entrada.folio,widget.entrada.nombreOperador,true,'Entrada');
                     await controlador.agregarObservacionVigilante(
                       ObservacionVigilante(
                         folio: widget.entrada.folio,
@@ -315,6 +320,10 @@ class _EntryChecklistScreenState extends State<EntryChecklistScreen> {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                
                               },
                               child: const Text('cerrar'),
                             ),

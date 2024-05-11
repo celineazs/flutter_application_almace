@@ -153,60 +153,43 @@ class _VistaDetallesCamionState extends State<VistaDetallesCamion> {
                       ],
                     ),
                   ),
+                   Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Ajusta el margen
+          height: MediaQuery.of(context).size.height * 0.08, // Ajusta la altura
+         decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 41, 39, 39),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.file_upload_outlined, size: 40),
+                color: Colors.white,
+                onPressed: () {
+                },
+              ),
+              const SizedBox(width: 20),
+              IconButton(
+                icon: const Icon(Icons.file_download_outlined, size: 40),
+                color: Colors.white,
+                onPressed: () {
+                },
+              ),
+              const SizedBox(width: 20),
+              IconButton(
+                icon: const Icon(Icons.edit_note_outlined, size: 40),
+                color: Colors.white,
+                onPressed: () {
+                },
+              ),
+            ],
+          ),
+        ),
                 ],
+                
               ),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              padding: const EdgeInsets.only(
-                left: 50.0,
-                right: 50,
-                top: 5,
-                bottom: 20,
-              ),
-              color: Colors.transparent,
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.1,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 41, 39, 39),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.offline_pin_outlined, size: 40),
-                      color: Colors.white,
-                      onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const EntryChecklistScreen(),
-                        //   ),
-                        // );
-                      },
-                    ),
-                    const SizedBox(width: 20),
-                    IconButton(
-                      icon: const Icon(Icons.edit_note_outlined, size: 40),
-                      color: Colors.white,
-                      onPressed: () {},
-                    ),
-                    const SizedBox(width: 20),
-                    IconButton(
-                      icon: const Icon(Icons.arrow_circle_right_outlined, size: 40),
-                      color: Colors.white,
-                      onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const ExitChecklistScreen(),
-                        //   ),
-                        // );
-                      },
-                    ),
-                  ],
-                ),
-              ),
+              
             ),
           ),
           Positioned(

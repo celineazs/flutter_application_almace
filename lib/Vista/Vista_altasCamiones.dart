@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_camiones.dart';
 import 'package:flutter_application_almacee/Modelo/Camion.dart';
 
+
 class AltaCamionView extends StatefulWidget {
   const AltaCamionView({super.key});
 
@@ -61,8 +62,9 @@ class _AltaCamionViewState extends State<AltaCamionView> {
                 ),
               ),
               const SizedBox(height: 10),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _matriculaController, // Connect the controller
+                decoration: const InputDecoration(
                   hintText: 'Ingrese la matrícula del camión',
                   border: OutlineInputBorder(),
                 ),
@@ -76,8 +78,9 @@ class _AltaCamionViewState extends State<AltaCamionView> {
                 ),
               ),
               const SizedBox(height: 10),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _modeloController, // Connect the controller
+                decoration: const InputDecoration(
                   hintText: 'Ingrese el modelo',
                   border: OutlineInputBorder(),
                 ),
@@ -98,7 +101,7 @@ class _AltaCamionViewState extends State<AltaCamionView> {
                       ),
                       const SizedBox(height: 10),
                       TextField(
-                        controller: _anoController,
+                        controller: _anoController, // Connect the controller
                         decoration: const InputDecoration(
                           labelText: 'Ingrese el año de fabricación',
                           border: OutlineInputBorder(),
@@ -122,7 +125,7 @@ class _AltaCamionViewState extends State<AltaCamionView> {
                       ),
                       const SizedBox(height: 10),
                       TextField(
-                        controller: _kilometrajeController,
+                        controller: _kilometrajeController, // Connect the controller
                         decoration: const InputDecoration(
                           labelText: 'Ingrese el Kilometraje',
                           border: OutlineInputBorder(),
@@ -144,7 +147,7 @@ class _AltaCamionViewState extends State<AltaCamionView> {
               ), 
             const SizedBox(height: 10),
             TextField(
-              controller: _companiaController,
+              controller: _companiaController, // Connect the controller
               decoration: const InputDecoration(labelText: 'Ingrese Compañía de Transporte'
               ,border: OutlineInputBorder(),),
             ),
@@ -218,23 +221,33 @@ class _AltaCamionViewState extends State<AltaCamionView> {
                 Camion camion = Camion(
                   matricula: _matriculaController.text,
                   modelo: _modeloController.text,
-                  anoFabricacion: int.parse(_anoController.text),
+                  anoFabricacion: _anoController.text,
                   companiaTransporte: _companiaController.text,
-                  kilometraje: int.parse(_kilometrajeController.text),
+                  kilometraje: _kilometrajeController.text,
                   ultimoServicio: _formatDate(_ultimoServicio),
                   proximoServicio: _formatDate(_proximoServicio),
-                  historialCargas: int.parse(_matriculaController.text),
                 );
-                bool registrado = await _controlador.registrarCamion(camion);
-                // if (registrado) {
-                //   Navigator.pop(context);
-                // } else {
-                //   ScaffoldMessenger.of(context).showSnackBar(
-                //     const SnackBar(
-                //       content: Text('Ya existe un camión con esa matrícula'),
-                //     ),
-                //   );
-                // }
+               if(await _controlador.registrarCamion(camion)){
+               //  ignore: use_build_context_synchronously
+                 showDialog(
+                   context: context,
+                   builder: (BuildContext context){
+                     return AlertDialog(
+                       title: const Text('EXITO!'),
+                       content: const Text('El camión ha sido registrado correctamente!'),
+                       actions: [
+                         TextButton(
+                           child: const Text('Aceptar'),
+                           onPressed: (){
+                             Navigator.pop(context);
+                             Navigator.pop(context);
+                           },
+                         ),
+                       ],
+                     );
+                   },
+                 );
+               }
               },
                style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, 
@@ -262,6 +275,4 @@ class _AltaCamionViewState extends State<AltaCamionView> {
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
   }
-
-  
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Modelo/ObservacionVigilante.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+
 class vistaObservaciones extends StatefulWidget {
   const vistaObservaciones({super.key});
 

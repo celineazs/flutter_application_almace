@@ -15,6 +15,7 @@ class ControladorCamiones {
     await _camionesCollection.add(camion.toMap());
     return true;
   }
+ 
 
   Future<List<Camion>> getCamionesDeBD() async {
     List<Camion> camiones = [];
@@ -29,7 +30,6 @@ class ControladorCamiones {
         kilometraje: doc['kilometraje'],
         ultimoServicio: doc['ultimoServicio'],
         proximoServicio: doc['proximoServicio'],
-        historialCargas: doc['historialCargas'],
       ));
     }
     return camiones;
@@ -69,5 +69,4 @@ class ControladorCamiones {
     bool enTransito = querySnapshot.docs[0].get('enTransito');
     return enTransito ? 'enTransito' : 'Disponible';
   }
-
 }
