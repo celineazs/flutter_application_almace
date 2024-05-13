@@ -6,7 +6,7 @@ class ReporteVigilante {
   String fecha;
   String hora;
   String tipo; //entrada o salida
-  String VigilanteAsignado;
+  String Vigilante;
   String Estado;
   String Motivo;
 
@@ -16,7 +16,7 @@ class ReporteVigilante {
     required this.fecha,
     required this.hora,
     required this.tipo,
-    required this.VigilanteAsignado,
+    required this.Vigilante,
     required this.Estado,
     required this.Motivo,
   });
@@ -28,7 +28,7 @@ class ReporteVigilante {
       'fecha': fecha,
       'hora': hora,
       'tipo': tipo,
-      'VigilanteAsignado': VigilanteAsignado,
+      'Vigilante': Vigilante,
       'Estado': Estado,
       'Motivo': Motivo,
     };
@@ -42,7 +42,7 @@ class ReporteVigilante {
       fecha: data['fecha'],
       hora: data['hora'],
       tipo: data['tipo'],
-      VigilanteAsignado: data['VigilanteAsignado'],
+      Vigilante: data['Vigilante'],
       Estado: data['Estado'],
       Motivo: data['Motivo'],
     );

@@ -1,217 +1,150 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_almacee/Vista/EntryChecklistScreen.dart';
-import 'package:flutter_application_almacee/Vista/ExitChecklistScreen.dart';
+import 'package:flutter_application_almacee/Controlador/Controlador_camiones.dart';
+import 'package:flutter_application_almacee/Modelo/HistorialOperador.dart';
 import '../Modelo/Camion.dart';
 
-class VistaDetallesCamion extends StatefulWidget {
-  final Camion camion;
-
-  const VistaDetallesCamion({required this.camion, Key? key}) : super(key: key);
 
   @override
-  _VistaDetallesCamionState createState() => _VistaDetallesCamionState();
-}
+  class VistaDetallesCamion extends StatefulWidget {
+    final Camion camion;
 
-class _VistaDetallesCamionState extends State<VistaDetallesCamion> {
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromARGB(255, 41, 39, 39), 
-          elevation: 0, 
+    const VistaDetallesCamion({required this.camion, Key? key}) : super(key: key);
+
+    @override
+    // ignore: library_private_types_in_public_api
+    _VistaDetallesCamionState createState() => _VistaDetallesCamionState();
+  }
+
+  class _VistaDetallesCamionState extends State<VistaDetallesCamion> {
+    // ignore: non_constant_identifier_names
+    late List<HistorialOperador> HistorialCamion;
+    ControladorCamiones controlador = ControladorCamiones();
+
+    @override
+    void initState() {
+      super.initState();
+      cargarHistorialCamion();
+    }
+
+    Future<void> cargarHistorialCamion() async {
+      List<HistorialOperador> listaHistorialOperador =
+          await controlador.getHistorialOperador(widget.camion.matricula);
+      HistorialCamion = listaHistorialOperador;
+      
+    }
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget.camion.matricula,
+            style: const TextStyle(color: Colors.white, fontSize: 30),
+            overflow: TextOverflow.ellipsis,
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          centerTitle: true,
+          toolbarHeight: 80,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 15, 58, 47),
+                  Color.fromARGB(255, 52, 174, 190),
+                ],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+            ),
+          ),
         ),
-        iconTheme: const IconThemeData(
-          color: Color.fromARGB(255, 243, 238, 238),
-        ),
-      ),
-      child: Stack(
+        body: ListView(
+          children: [
+            ListTile(
+              title: Text('Matricula: ${widget.camion.matricula}'),
+            ),
+            ListTile(
+              title: Text('Año de fabricacion: ${widget.camion.anoFabricacion}'),
+            ),
+            ListTile(
+              title: Text('Compañia de transporte: ${widget.camion.companiaTransporte}'),
+            ),
+            ListTile(
+              title: Text('Estado: ${widget.camion.enTransito}'),
+            ),
+            ListTile(
+              title: Text('Kilometraje: ${widget.camion.kilometraje}'),
+            ),
+            ListTile(
+              title: Text('Ultimo Servicio: ${widget.camion.ultimoServicio}'),
+            ),
+            ListTile(
+              title: Text('Proximo Servicio: ${widget.camion.proximoServicio}'),
+            ),
+            FutureBuilder(
+              future: cargarHistorialCamion(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const CircularProgressIndicator();
+    } else if (snapshot.hasError) {
+      return Text('Error: ${snapshot.error}');
+    } else {
+      return Column(
         children: [
-          Scaffold(
-            backgroundColor: const Color.fromARGB(255, 243, 238, 238),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 41, 39, 39),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 70,
-                      left: 30.0,
-                      right: 30.0,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 20), 
-                                child: Container(
-                                  alignment: AlignmentDirectional
-                                      .centerEnd, 
-                                  child: const Text(
-                                    'Ultimo servicio',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20), 
-                                child: Container(
-                                  alignment: AlignmentDirectional
-                                      .centerStart, 
-                                  child: const Text(
-                                    'Proximo servicio',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+          const ListTile(
+            title: Text('-Historial de viajes:'),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: HistorialCamion.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text('Folio: ${HistorialCamion[index].folio} - Fecha: ${HistorialCamion[index].fecha} ${HistorialCamion[index].hora}'),
+                onTap: () {
+                    showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                      title: const Text('Detalles del Historial'),
+                      content: SingleChildScrollView(
+                        child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Folio: ${HistorialCamion[index].folio}'),
+                          Text('Fecha: ${HistorialCamion[index].fecha} ${HistorialCamion[index].hora}'),
+                          Text('Operador: ${HistorialCamion[index].idChofer}'),
+                          Text('Tipo: ${HistorialCamion[index].tipo}')
+                        ],
                         ),
-                        const SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 170,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: const Center(
-                                child: Text('Container 1'),
-                              ),
-                            ),
-                            const SizedBox(width: 15),
-                            Container(
-                              width: 170,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: const Center(
-                                child: Text('Container 2'),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 15),
-                        Positioned(
-                          top: 200, // Ajusta la posición aquí
-                          left: 0,
-                          right: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 0,
-                              right: 0,
-                            ),
-                            child: Container(
-                              height: 350,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 15),
-                        Positioned(
-                          top: 150, // Ajusta la posición aquí
-                          left: 0,
-                          right: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 0,
-                              right: 0,
-                            ),
-                            child: Container(
-                              height: 130,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
+                      ),
+                      actions: [
+                        TextButton(
+                        child: const Text('Cerrar'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
                         ),
                       ],
-                    ),
-                  ),
-                   Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Ajusta el margen
-          height: MediaQuery.of(context).size.height * 0.08, // Ajusta la altura
-         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 41, 39, 39),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.file_upload_outlined, size: 40),
-                color: Colors.white,
-                onPressed: () {
+                      );
+                    },
+                    );
                 },
-              ),
-              const SizedBox(width: 20),
-              IconButton(
-                icon: const Icon(Icons.file_download_outlined, size: 40),
-                color: Colors.white,
-                onPressed: () {
-                },
-              ),
-              const SizedBox(width: 20),
-              IconButton(
-                icon: const Icon(Icons.edit_note_outlined, size: 40),
-                color: Colors.white,
-                onPressed: () {
-                },
-              ),
-            ],
+              );
+            },
           ),
-        ),
-                ],
-                
-              ),
-              
-            ),
-          ),
-          Positioned(
-            top: 90, 
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 25.0,
-                right: 25.0,
-              ),
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            ),
-          ),
+          
         ],
-      ),
-    );
-  }
+      );
+    }
+  },
+),
+      ],
+    ),
+  );
+}
 }

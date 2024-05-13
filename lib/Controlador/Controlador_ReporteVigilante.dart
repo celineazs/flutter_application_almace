@@ -31,39 +31,35 @@ Future<void> eliminarAgenda(String folio,String nombreOperador,bool enTransito,S
         // Buscar el camión en la colección 'Camiones'
         Camion camion = await buscarCamion(matriculaCamion);
 
-        if (camion != null) {
-          // Actualizar el último servicio y el próximo servicio del camión
-            await _camionesCollection
-              .where('matricula', isEqualTo: matriculaCamion)
-              .get()
-              .then((querySnapshot) {
-            if (querySnapshot.docs.isNotEmpty) {
-              String docId = querySnapshot.docs[0].id;
-              _camionesCollection.doc(docId).update({
-              'ultimoServicio': camion.proximoServicio,
-              'proximoServicio': 'En espera',
-              'enTransito': enTransito,
-              });
-            } else {
-              print('No se encontró el camión con la matrícula especificada');
-            }
+        // Actualizar el último servicio y el próximo servicio del camión
+          await _camionesCollection
+            .where('matricula', isEqualTo: matriculaCamion)
+            .get()
+            .then((querySnapshot) {
+          if (querySnapshot.docs.isNotEmpty) {
+            String docId = querySnapshot.docs[0].id;
+            _camionesCollection.doc(docId).update({
+            'ultimoServicio': camion.proximoServicio,
+            'proximoServicio': 'En espera',
+            'enTransito': enTransito,
             });
-          // Agregar el historial de operador
-          await Historial.add({
-                          'idChofer': nombreOperador,
-                           'folio': folio,
-                             'matriculaCamion': matriculaCamion,
-                               'fecha': DateFormat('dd/MM/yy').format(DateTime.now()),
-                                     'hora': DateFormat('HH:mm').format(DateTime.now()),
-                                           'tipo': tipo,
-                                              });
-                                              
-          // Eliminar la agenda
-          await Agendas.doc(agendaDoc.id).delete();
-        } else {
-          print('No se encontró el camión con la matrícula especificada');
-        }
-      } else {
+          } else {
+            print('No se encontró el camión con la matrícula especificada');
+          }
+          });
+        // Agregar el historial de operador
+        await Historial.add({
+                        'idChofer': nombreOperador,
+                         'folio': folio,
+                           'matriculaCamion': matriculaCamion,
+                             'fecha': DateFormat('dd/MM/yy').format(DateTime.now()),
+                                   'hora': DateFormat('HH:mm').format(DateTime.now()),
+                                         'tipo': tipo,
+                                            });
+                                            
+        // Eliminar la agenda
+        await Agendas.doc(agendaDoc.id).delete();
+            } else {
         print('No se encontró la agenda con el folio especificado');
       }
     }
@@ -126,24 +122,24 @@ Future<bool> agregarObservacionVigilante(ObservacionVigilante observacionVigilan
     }
   }
 
-  Future<List<ReporteVigilante>> obtenerReporteVigilanteEntrada() async {
-    try {
-      QuerySnapshot querySnapshot = await ReporteVigilant
+  // Future<List<ReporteVigilante>> obtenerReporteVigilanteEntrada() async {
+  //   try {
+  //     QuerySnapshot querySnapshot = await ReporteVigilant
           
-          .orderBy('fecha', descending: false)
-          .get();
-      return querySnapshot.docs.map((doc) => ReporteVigilante.fromFirestore(doc)).toList();
-    } catch (e) {
-      print('Error al obtener los reportes de entrada: $e');
-      return [];
-    }
-  }
+  //         .orderBy('fecha', descending: false)
+  //         .get();
+  //     return querySnapshot.docs.map((doc) => ReporteVigilante.fromFirestore(doc)).toList();
+  //   } catch (e) {
+  //     print('Error al obtener los reportes de entrada: $e');
+  //     return [];
+  //   }
+  // }
 
   Future<List<ReporteVigilante>> obtenerReporteVigilanteSalida() async {
     try {
       QuerySnapshot querySnapshot = await ReporteVigilant
-          .where('tipo', isEqualTo: 'Salida')
-          .orderBy('fecha', descending: false)
+          .orderBy('fecha', descending: true)
+          .orderBy('hora', descending: true)
           .get();
 
       return querySnapshot.docs.map((doc) => ReporteVigilante.fromFirestore(doc)).toList();
@@ -170,4 +166,9 @@ Future<bool> agregarObservacionVigilante(ObservacionVigilante observacionVigilan
     }
     return camiones;
   }
+  
+
+
+
+
 }

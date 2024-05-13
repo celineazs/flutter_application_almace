@@ -35,7 +35,7 @@ class _AltasState extends State<Altas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Altas', style: TextStyle(color: Color.fromARGB(255, 255, 253, 253), 
+        title: const Text('Entrada', style: TextStyle(color: Color.fromARGB(255, 255, 253, 253), 
         fontSize: 25)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
@@ -176,7 +176,7 @@ class _AltasState extends State<Altas> {
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 ),
                 child: const Text(
-                  'Agregar',
+                  'Aceptar',
                   style: TextStyle(
                     fontSize: 15),
                     ),

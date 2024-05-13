@@ -43,5 +43,4 @@ class ControladorOperador{
     }
     return operadores;
   }
-
 }

@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_almacee/Modelo/Camion.dart';
+import 'package:flutter_application_almacee/Modelo/HistorialOperador.dart';
 // ignore: camel_case_types
 class ControladorCamiones {
  
   final CollectionReference _camionesCollection =FirebaseFirestore.instance.collection('Camiones');
-  
+  final CollectionReference Historial = FirebaseFirestore.instance.collection('HistorialOperador'); 
+
   Future<bool> registrarCamion(Camion camion) async {
     final querySnapshot = await _camionesCollection
         .where('matricula', isEqualTo: camion.matricula)
@@ -69,4 +71,27 @@ class ControladorCamiones {
     bool enTransito = querySnapshot.docs[0].get('enTransito');
     return enTransito ? 'enTransito' : 'Disponible';
   }
+
+Future<List<HistorialOperador>> getHistorialOperador(String matriculaCamion) async {
+  List<HistorialOperador> historialOperador = [];
+  final querySnapshot = await Historial
+      .where('matriculaCamion', isEqualTo: matriculaCamion)
+      .orderBy('fecha', descending: true)
+      .orderBy('hora', descending: true)
+      .get();
+  for (var doc in querySnapshot.docs) {
+    historialOperador.add(HistorialOperador(
+      idChofer: doc['idChofer'],
+      folio: doc['folio'],
+      matriculaCamion: doc['matriculaCamion'],
+      fecha: doc['fecha'],
+      hora: doc['hora'],
+      tipo: doc['tipo'],
+    ));
+  }
+  return historialOperador;
+}
+
+
+
 }

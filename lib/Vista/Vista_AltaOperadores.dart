@@ -115,7 +115,7 @@ class _VistaAltasOperadoresState extends State<VistaAltasOperadores> {
                     TextField(
                       controller: _licenciaController, // Asignar el controlador al campo de texto
                       decoration: const InputDecoration(
-                      hintText: 'Ingrese el estado de la licencia',
+                      hintText: 'Ingrese licencia',
                       border: OutlineInputBorder(),
                       ),
                     ),
@@ -139,7 +139,7 @@ class _VistaAltasOperadoresState extends State<VistaAltasOperadores> {
                     TextField(
                       controller: _estadoSaludController, // esto tu quitassss
                       decoration: const InputDecoration(
-                      hintText: 'Ingrese el estado de salud',
+                      hintText: 'Ingrese el estado de la licencia',
                       border: OutlineInputBorder(),
                       ),
                     ),
@@ -161,7 +161,7 @@ class _VistaAltasOperadoresState extends State<VistaAltasOperadores> {
                 controller: _contactoController, // Asignar el controlador al campo de texto
                 decoration: const InputDecoration(
                   hintText: 'Ingrese el contacto del chofer',
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20),
@@ -217,3 +217,5 @@ class _VistaAltasOperadoresState extends State<VistaAltasOperadores> {
     );
   }
 }
+
+

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_RegistrarUsuario.dart';
 import 'package:flutter_application_almacee/Modelo/Usuario.dart';
+import 'package:flutter_application_almacee/Controlador/Controlador_Login.dart';
 
 class RegistroUsuarios extends StatefulWidget {
   const RegistroUsuarios({Key? key}) : super(key: key);
@@ -19,13 +20,35 @@ class _RegistroUsuariosState extends State<RegistroUsuarios> {
   final Controlador_RegistrarUsuario _controlador = Controlador_RegistrarUsuario();
 
 @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        toolbarHeight: 80,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 15, 58, 47),
+                Color.fromARGB(255, 52, 174, 190),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+          ),
+        ),
+      ),
       body: Stack(
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.30,
+            height: MediaQuery.of(context).size.height * 0.50,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -41,11 +64,11 @@ class _RegistroUsuariosState extends State<RegistroUsuarios> {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: EdgeInsets.only(
-                      bottom: 100,
+                      bottom: 650,
                       right: 0,
                     ),
                     child: Text(
-                      'Registro de Usuarios',
+                      'Registrar Usuarios',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -61,7 +84,7 @@ class _RegistroUsuariosState extends State<RegistroUsuarios> {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.85,
+              height: MediaQuery.of(context).size.height * 0.75,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -175,7 +198,7 @@ class _RegistroUsuariosState extends State<RegistroUsuarios> {
                         Align(
                           alignment: Alignment.centerRight,
                           child: Container(
-                            width: MediaQuery.of(context).size.width / 3.0,
+                            width: MediaQuery.of(context).size.width / 2.0,
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -211,7 +234,7 @@ class _RegistroUsuariosState extends State<RegistroUsuarios> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 30),
                         Align(
                           alignment: Alignment.center,
                           child: SizedBox(

@@ -12,7 +12,11 @@ class VistaCamion extends StatefulWidget {
 }
 
 class _VistaCamionState extends State<VistaCamion> {
+  
   late List<Camion> _camiones;
+
+
+  
   final ControladorCamiones controlador = ControladorCamiones();
 
   late Future<void> _futureCargaCamiones;
@@ -113,3 +117,7 @@ class _VistaCamionState extends State<VistaCamion> {
     );
   }
 }
+
+
+
+

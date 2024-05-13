@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_almacee/Modelo/Usuario.dart';
-import 'package:flutter_application_almacee/Vista/Vista_AltaFacturas.dart';
 import 'package:flutter_application_almacee/Vista/Vista_ConsultaAlmacen.dart';
 import 'Vista_Almacen.dart'; 
 import 'Vista_AlmacenReportes.dart';
@@ -118,7 +116,7 @@ Widget build(BuildContext context) {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) =>  AltaFactura()),
+                              MaterialPageRoute(builder: (context) => const VistaReportes()),
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -131,13 +129,13 @@ Widget build(BuildContext context) {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
-                                Icons.request_quote_sharp,
+                                Icons.receipt_long,
                                 size: 70,
                                 color: Colors.black,
                               ),
                               SizedBox(height: 10),
                               Text(
-                                'Facturas',
+                                'Reportes',
                                 style: TextStyle(color: Colors.black, fontSize: 20),
                               ),
                             ],
@@ -188,39 +186,6 @@ Widget build(BuildContext context) {
     ),
   ),
 ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.43,
-                        height: MediaQuery.of(context).size.height * 0.27,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const VistaReportes()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              side: const BorderSide(color: Colors.grey)),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.receipt_long,
-                                size: 70,
-                                color: Colors.black,
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                'Reportes',
-                                style: TextStyle(color: Colors.black, fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ],

@@ -3,11 +3,13 @@ import 'package:flutter_application_almacee/Controlador/Controlador_HistorialOpe
 import 'package:flutter_application_almacee/Controlador/Controlador_Operador.dart';
 import 'package:flutter_application_almacee/Modelo/HistorialOperador.dart';
 import 'package:flutter_application_almacee/Modelo/InfraccionOperador.dart';
+import 'package:flutter_application_almacee/Vista/Vista_AgregarInfraccionOperador.dart';
 import '../Modelo/Operador.dart';
 class DetalleOperador extends StatefulWidget {
   final Operador operador;
+  final String usuario;
 
-  const DetalleOperador({required this.operador, Key? key}) : super(key: key);
+  const DetalleOperador({required this.operador, Key? key, required this.usuario}) : super(key: key);
 
   @override
   State<DetalleOperador> createState() => _DetalleOperadorState();
@@ -36,9 +38,10 @@ Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
         title: Text(
-        'Detalles de ${widget.operador.nombre}',
-        style: const TextStyle(color: Colors.white, fontSize: 30),
-      ),
+          widget.operador.nombre,
+          style: const TextStyle(color: Colors.white, fontSize: 30),
+          overflow: TextOverflow.ellipsis,
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
           onPressed: () {
@@ -47,8 +50,11 @@ Widget build(BuildContext context) {
         ),
         actions: [
         IconButton(
-          icon: const Icon(Icons.create_outlined , color: Colors.white, size: 30),
+          icon: const Icon(Icons.error_outlined , color: Colors.white, size: 30),
           onPressed: () {
+             Navigator.of(context, rootNavigator: true).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => VistaAgregarInfraccionOperador( operador: widget.operador,usuario: widget.usuario,)));
           },
         ),
       ],
@@ -73,13 +79,13 @@ Widget build(BuildContext context) {
           title: Text('ID del Operador: ${widget.operador.IdChofer}'),
         ),
         ListTile(
-          title: Text('Nombre del Chofer: ${widget.operador.nombre}'),
+          title: Text('Nombre del Operador: ${widget.operador.nombre}'),
         ),
         ListTile(
           title: Text('Licencia de Conducir: ${widget.operador.licenciaConducir}'),
         ),
          ListTile(
-          title: Text('Estado: ${widget.operador.estadoSalud}'),
+          title: Text('Estado de Licencia: ${widget.operador.estadoSalud}'),
         ),
         ListTile(
           title: Text('Contacto: ${widget.operador.contacto}'),
@@ -97,7 +103,7 @@ Widget build(BuildContext context) {
       return Column(
         children: [
           const ListTile(
-            title: Text('Historial de Operador:'),
+            title: Text('-Historial de Operador:'),
           ),
           ListView.builder(
             shrinkWrap: true,
@@ -105,11 +111,39 @@ Widget build(BuildContext context) {
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text('Folio: ${historialOperador[index].folio} - Fecha: ${historialOperador[index].fecha} ${historialOperador[index].hora}'),
+                onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Detalles del Historial'),
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                             mainAxisSize: MainAxisSize.min, // Set mainAxisSize to min
+                            children: [
+                              Text('Folio: ${historialOperador[index].folio}'),
+                              Text('Fecha: ${historialOperador[index].fecha} ${historialOperador[index].hora}'),
+                              Text('Tipo: ${historialOperador[index].tipo}'),
+                              Text('Matricula del Camion: ${historialOperador[index].matriculaCamion}')
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                              child: const Text('Cerrar'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                },
               );
             },
           ),
           const ListTile(
-            title: Text('Registro de Infracciones:'),
+            title: Text('-Registro de Infracciones:'),
           ),
           ListView.builder(
             shrinkWrap: true,
@@ -117,6 +151,33 @@ Widget build(BuildContext context) {
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text('Infracción: ${registroInfracciones[index].Infraccion}'),
+                onTap: () {
+                    showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                      title: const Text('Detalles de la Infracción'),
+                      content: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min, // Set mainAxisSize to min
+                        children: [
+                        Text('Infracción: ${registroInfracciones[index].Infraccion}'),
+                        Text('Fecha: ${registroInfracciones[index].fecha}'),
+                        Text('Encargado: ${registroInfracciones[index].encargado}'),
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                        child: const Text('Cerrar'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        ),
+                      ],
+                      );
+                    },
+                    );
+                },
               );
             },
           ),
@@ -130,3 +191,4 @@ Widget build(BuildContext context) {
   );
 }
 }
+

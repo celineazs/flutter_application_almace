@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_almacee/Controlador/Controlador_Almacen.dart';
 
 
+
 class Bajas extends StatefulWidget {
   final String usuario;
   const Bajas({Key? key, required this.usuario}) : super(key: key);
@@ -28,7 +29,7 @@ class _BajasState extends State<Bajas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bajas', style: TextStyle(color: Color.fromARGB(255, 255, 253, 253), 
+        title: const Text('Salida', style: TextStyle(color: Color.fromARGB(255, 255, 253, 253), 
         fontSize: 25)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
@@ -123,7 +124,7 @@ class _BajasState extends State<Bajas> {
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 ),
                 child: const Text(
-                  'Agregar',
+                  'Aceptar',
                   style: TextStyle(
                     fontSize: 15),
                     ),
