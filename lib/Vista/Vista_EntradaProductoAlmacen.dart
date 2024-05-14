@@ -156,19 +156,27 @@ class _AltasState extends State<Altas> {
                   );
 
                   if (await controlador.agregarProducto(producto,widget.usuario)) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Producto agregado correctamente'),
-                      ),
+                    // ignore: use_build_context_synchronously
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Producto agregado correctamente'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
                     );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Error al agregar el producto'),
-                      ),
-                    );
-                  }
                   dispose();
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, 

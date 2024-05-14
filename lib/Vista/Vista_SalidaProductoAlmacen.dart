@@ -104,19 +104,27 @@ class _BajasState extends State<Bajas> {
                   final cantidad = int.parse(cantidadController.text);
                   final usuario = usuarioController.text;
                   if(await controlador.eliminarProducto(folio, cantidad, usuario, widget.usuario)){
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Producto eliminado correctamente'),
-                      ),
-                    );
-                  }else{
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Error al eliminar el producto'),
-                      ),
+                    // ignore: use_build_context_synchronously
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Producto eliminado correctamente'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
                     );
                   }
-                  dispose();
+                 dispose();
                 },
                 style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, 
