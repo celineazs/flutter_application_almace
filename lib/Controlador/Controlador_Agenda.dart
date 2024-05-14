@@ -17,9 +17,19 @@ final CollectionReference _camionesCollection = FirebaseFirestore.instance.colle
     if (camionQuery.docs.isNotEmpty) {
       // Obtiene el documento del camión encontrado
       final camionDoc = camionQuery.docs.first;
-      // Actualiza el próximo servicio del camión con la fecha de la agenda
+      final camionData = camionDoc.data() as Map<String, dynamic>;
+
+      // Obtiene la fecha del próximo servicio actual del camión
+      final DateTime proximoServicioActual = camionData['proximoServicio'].toDate();
+
+      // Compara las fechas para determinar cuál es más próxima
+      final DateTime fechaProxima = (proximoServicioActual.isAfter(agenda.fecha))
+          ? proximoServicioActual
+          : agenda.fecha;
+
+      // Actualiza el próximo servicio del camión con la fecha más próxima
       await camionDoc.reference.update({
-        'proximoServicio': agenda.fecha,
+        'proximoServicio': fechaProxima,
       });
     }
 

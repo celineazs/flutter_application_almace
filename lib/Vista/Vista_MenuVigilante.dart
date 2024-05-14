@@ -137,7 +137,7 @@ class _MenuVigilanteState extends State<MenuVigilante> {
                                         TextSpan(
                                           text: proximaAgenda != null ? 'Folio: ${proximaAgenda!.folio}' : 'No hay agenda',
                                         ),
-                                        const TextSpan(text: '                 '), // Espacio entre Folio y Hora
+                                        const TextSpan(text: '             '), // Espacio entre Folio y Hora
                                         TextSpan(
                                           text: proximaAgenda != null ? 'Hora: ${proximaAgenda!.hora}' : '',
                                         ),
@@ -145,7 +145,7 @@ class _MenuVigilanteState extends State<MenuVigilante> {
                                         TextSpan(
                                           text: proximaAgenda != null ? 'Tipo: ${proximaAgenda!.tipo}' : '',
                                         ),
-                                        const TextSpan(text: '                   '), // Espacio entre Tipo y Matrícula
+                                        const TextSpan(text: '             '), // Espacio entre Tipo y Matrícula
                                         TextSpan(
                                           text: proximaAgenda != null ? 'Matrícula: ${proximaAgenda!.matriculaCamion}' : '',
                                         ),
