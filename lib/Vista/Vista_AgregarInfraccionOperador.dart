@@ -125,14 +125,33 @@ class _VistaAgregarInfraccionOperadorState extends State<VistaAgregarInfraccionO
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                  InfraccionOperador infraccionOperador = InfraccionOperador(
                     idChofer: widget.operador.IdChofer,
                     Infraccion: _infraccionController.text,
                     fecha: DateFormat('dd/MM/yyyy').format(DateTime.now()),
                     encargado: widget.usuario,
                   );
-                  controlador.agregarInfraccionOperador(infraccionOperador);
+                  if(await controlador.agregarInfraccionOperador(infraccionOperador)){
+                    // ignore: use_build_context_synchronously
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Infracción agregada'),
+                        content: const Text('La infracción se ha agregado correctamente'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Aceptar'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, 

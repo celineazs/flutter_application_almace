@@ -7,11 +7,13 @@ class ControladorHistorialOperador{
     final CollectionReference Infracciones =FirebaseFirestore.instance.collection('RegistroInFraccionesOperador');
   final CollectionReference Historial = FirebaseFirestore.instance.collection('HistorialOperador'); 
 
-    Future<void> agregarInfraccionOperador(InfraccionOperador infraccionOperador) async {
+    Future<bool> agregarInfraccionOperador(InfraccionOperador infraccionOperador) async {
     try {
       await Infracciones.add(infraccionOperador.toMap());
+      return true;
     } catch (e) {
       print('Error al agregar la infracción: $e');
+      return false;
     }
     }
  
