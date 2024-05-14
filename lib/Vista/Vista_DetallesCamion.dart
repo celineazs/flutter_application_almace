@@ -75,7 +75,7 @@ import '../Modelo/Camion.dart';
               title: Text('Compañia de transporte: ${widget.camion.companiaTransporte}'),
             ),
             ListTile(
-              title: Text('Estado: ${widget.camion.enTransito}'),
+              title: Text('Estado: ${widget.camion.enTransito ? "En Tránsito" : "Disponible"}'),
             ),
             ListTile(
               title: Text('Kilometraje: ${widget.camion.kilometraje}'),
