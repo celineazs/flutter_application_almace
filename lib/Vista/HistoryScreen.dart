@@ -47,7 +47,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
     batches.add(historial.sublist(i, i + batchSize < historial.length ? i + batchSize : historial.length));
   }
 
-  for (var batch in batches) {
+  for (var batchIndex = 0; batchIndex < batches.length; batchIndex++) {
+    final batch = batches[batchIndex];
     pdf.addPage(
       pw.Page(
         build: (context) {
@@ -82,7 +83,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                    data: [
         ['folio','Tipo', 'Camión', 'Fecha', 'Hora', 'Vigilante', 'Estado'],
        
-        for (var historialItem in historial)
+        for (var historialItem in batch)
         [
           historialItem.folio,
           historialItem.tipo,
@@ -95,8 +96,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
       ],
               ),
               pw.SizedBox(height: 20),
+              // Este Row puede contener la información que quieras agregar en cada página
               pw.Row(
-                
+                children: [
+                  pw.Text('Página ${batchIndex + 1} de ${batches.length}'),
+                ],
               ),
             ],
           );
