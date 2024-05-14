@@ -5,15 +5,31 @@ import 'package:flutter_application_almacee/Modelo/AgendaReturn.dart';
 class ControladorAgenda {
 
  final CollectionReference Agendas =FirebaseFirestore.instance.collection('Agendas');
-
+final CollectionReference _camionesCollection = FirebaseFirestore.instance.collection('Camiones');
   Future<bool> agregarAgenda(Agenda agenda) async {
-    try {
-      await Agendas.add(agenda.toMap());
-      return true;
-    } catch (e) {
-      return false;
+  try {
+    // Busca el camión por su matrícula
+    final camionQuery = await _camionesCollection
+        .where('matricula', isEqualTo: agenda.matriculaCamion)
+        .limit(1)
+        .get();
+
+    if (camionQuery.docs.isNotEmpty) {
+      // Obtiene el documento del camión encontrado
+      final camionDoc = camionQuery.docs.first;
+      // Actualiza el próximo servicio del camión con la fecha de la agenda
+      await camionDoc.reference.update({
+        'proximoServicio': agenda.fecha,
+      });
     }
+
+    // Agrega la agenda a la colección de agendas
+    await Agendas.add(agenda.toMap());
+    return true;
+  } catch (e) {
+    return false;
   }
+}
 
   Future<List<Agenda2>> obtenerAgendasEntrada() async {
     try {
