@@ -41,7 +41,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   final image = pw.MemoryImage(bytes);
 
   // Dividir los datos en lotes de tamaño adecuado para cada página
-  const batchSize = 10; // Número de filas por página
+  const batchSize = 20; // Número de filas por página
   final batches = <List<ReporteVigilante>>[];
   for (var i = 0; i < historial.length; i += batchSize) {
     batches.add(historial.sublist(i, i + batchSize < historial.length ? i + batchSize : historial.length));
