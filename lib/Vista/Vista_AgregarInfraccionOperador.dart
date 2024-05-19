@@ -118,7 +118,7 @@ class _VistaAgregarInfraccionOperadorState extends State<VistaAgregarInfraccionO
               labelText: 'Ingrese la descripción de la infracción',
               border: OutlineInputBorder(),
             ),
-            maxLines: 10,
+            maxLines: 6,
             ),
           const SizedBox(height: 20.0),
           Row(
@@ -160,7 +160,7 @@ class _VistaAgregarInfraccionOperadorState extends State<VistaAgregarInfraccionO
                 ),
                 child: const Text(
                   'Agregar',
-                  style: TextStyle(fontSize: 20.0),
+                  style: TextStyle(fontSize: 15.0),
                 ),
               ),
             ],

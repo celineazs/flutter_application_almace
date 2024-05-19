@@ -173,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Stack(
               children: [
                 Positioned(
-                  top: 40,
+                  top: 50,
                   width: MediaQuery.of(context).size.width,
                   child: Image.asset(
                     'lib/assets/camion.png',
@@ -188,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.73 ,
+              height: MediaQuery.of(context).size.height * 0.6,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

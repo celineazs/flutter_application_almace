@@ -298,22 +298,22 @@ class _MenuVigilanteState extends State<MenuVigilante> {
                   ),
                 ),
               ),
-                Positioned(
-                top: 415,
-                left: 0,
-                right: 20,
-                child: Container(
-                  decoration: const BoxDecoration(),
-                  child: Transform.scale(
-                  scale: 1.6, 
-                  child: Image.asset(
-                    'lib/assets/logo.png',
-                    width: 400,
-                    height: 400,
-                  ),
-                  ),
-                ),
-                ),
+                // Positioned(
+                // top: 370,
+                // left: 0,
+                // right: 20,
+                // child: Container(
+                //   decoration: const BoxDecoration(),
+                //   child: Transform.scale(
+                //   scale: 1.6, 
+                //   child: Image.asset(
+                //     'lib/assets/logo.png',
+                //     width: 400,
+                //     height: 400,
+                //   ),
+                //   ),
+                // ),
+                // ),
             ],
           ),
         ),
